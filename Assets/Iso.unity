@@ -468,11 +468,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: -33
+  near clip plane: -50
   far clip plane: 100
   field of view: 60
   orthographic: 1
-  orthographic size: 15.4
+  orthographic size: 15
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -501,4 +501,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 63543497}
   smoothSpeed: 0.125
-  offset: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 5.5, z: 0}
+  zoomScale: 1.5
