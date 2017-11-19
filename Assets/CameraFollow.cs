@@ -16,7 +16,7 @@ public class CameraFollow : MonoBehaviour {
 
     void Start()
     {
-        currZoom = minZoom;
+        currZoom = Camera.main.orthographicSize;
     }
 
     //Target's position is updated in 'Updated' func, updating that and camera position will cause jitteriness
@@ -43,20 +43,28 @@ public class CameraFollow : MonoBehaviour {
     //Now to get it to zoom in and out
     void Zoom()
     {
-        if(Input.mouseScrollDelta.y > 0 && currZoom >= maxZoom) //check if already at max zoom-in while mouse scroll up
+        if(Input.mouseScrollDelta.y > 0 ) //check if already at max zoom-in while mouse scroll up
         {
-            ZoomIn();
+            if (currZoom >= maxZoom)
+            {
+                ZoomIn();
+            }
 
-        }else if(Input.mouseScrollDelta.y < 0 && currZoom <= minZoom) //check if already at min zoom-in while mouse scroll down
+        }else if(Input.mouseScrollDelta.y < 0 ) //check if already at min zoom-in while mouse scroll down
         {
-            ZoomOut();
+            if (currZoom <= minZoom)
+            {
+                ZoomOut();
+            }
         }
+        currZoom = Camera.main.orthographicSize;
     }
 
 
     void ZoomIn()
     {
         Camera.main.orthographicSize += -zoomScale;
+        
     }
 
     void ZoomOut()
