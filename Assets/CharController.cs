@@ -31,7 +31,7 @@ public class CharController : MonoBehaviour {
         Vector3 rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxis("HorizontalKey"); //positive or negative direction for left/right
         Vector3 upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxis("VerticalKey"); //positive or negative direction for up/down
 
-        Vector3 heading = Vector3.Normalize(rightMovement + upMovement);  //total direction of left/right up/down and set length to 1
+        Vector3 heading = Vector3.Normalize(rightMovement + upMovement);  //total direction of left/right up/down and set length to 1. The direction you're HEADING
 
         transform.forward = heading; //apply the transformation
         transform.position += rightMovement; 
