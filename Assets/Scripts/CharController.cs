@@ -23,6 +23,8 @@ public class CharController : MonoBehaviour {
         {
             Move();
         }
+
+        //Debug.Log("transform position: " + transform.position.ToString());
 	}
 
     //The character will move isometric up/down and left/right instread of 3D up/down and left/right

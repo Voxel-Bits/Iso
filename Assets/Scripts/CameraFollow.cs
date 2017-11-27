@@ -23,13 +23,15 @@ public class CameraFollow : MonoBehaviour {
 
     void LateUpdate() //run right after update
     {
-
+        Debug.Log("Camera transform:" + transform.position.ToString());
+        
+        
         transform.position = target.position + offset; //update the camera's position 
     }
 
     void Update()
     {
-        
+        Debug.Log("Target transform:" + target.position.ToString());
         if (Input.mouseScrollDelta.y != 0) //mouse scroll I want only affects Y
         {
             Zoom();
