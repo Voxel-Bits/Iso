@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class CharController : MonoBehaviour {
 
     [SerializeField] //can modify in inspector without making it public
     float moveSpeed = 4f;
 
     Vector3 forward, right; //forward is upward and downward for our char
+    public bool isSelected { get; set; } //idk if I want this in the inspector
 
 	// Use this for initialization
 	void Start () {
@@ -15,16 +18,36 @@ public class CharController : MonoBehaviour {
         forward.y = 0;
         forward = Vector3.Normalize(forward); //set length to 1 to use for motion
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward; //Create rotation
+
+        if(tag == "Player")
+        {
+            isSelected = true;
+        }
+        else
+        {
+            isSelected = false;
+        }
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.anyKey)
+
+		if( checkIsSelected())
+        {
+            isSelected = true;
+        }
+        else
+        {
+            isSelected = false;
+        }
+
+        if (Input.anyKey && isSelected)
         {
             Move();
         }
 
-        //Debug.Log("transform position: " + transform.position.ToString());
+       
+
 	}
 
     //The character will move isometric up/down and left/right instread of 3D up/down and left/right
@@ -38,5 +61,15 @@ public class CharController : MonoBehaviour {
         transform.forward = heading; //apply the transformation
         transform.position += rightMovement; 
         transform.position += upMovement;
+    }
+
+    bool checkIsSelected()
+    {
+        if(tag == "Player")
+        {
+            return true;
+        }
+
+        return false;
     }
 }

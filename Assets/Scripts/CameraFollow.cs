@@ -17,25 +17,26 @@ public class CameraFollow : MonoBehaviour {
     void Start()
     {
         currZoom = Camera.main.orthographicSize;
+        
     }
 
     //Target's position is updated in 'Updated' func, updating that and camera position will cause jitteriness
 
     void LateUpdate() //run right after update
     {
-        Debug.Log("Camera transform:" + transform.position.ToString());
-        
         
         transform.position = target.position + offset; //update the camera's position 
     }
 
     void Update()
     {
-        Debug.Log("Target transform:" + target.position.ToString());
+        
         if (Input.mouseScrollDelta.y != 0) //mouse scroll I want only affects Y
         {
             Zoom();
         }
+
+        Select();
     }
 
     //Maybe I don't need a camera follow really?? RAther I don't need an offset!
@@ -72,6 +73,40 @@ public class CameraFollow : MonoBehaviour {
     void ZoomOut()
     {
         Camera.main.orthographicSize += zoomScale;
+    }
+
+    void Select()
+    {
+        if(Input.GetButtonDown("Fire1")) //check if mouse is pressed
+        {
+            
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            GameObject prevTarget = target.gameObject;
+            if(Physics.Raycast(ray, out hit)) //if it hits something, the camera should be set to it and follow it, or not if it's not an item
+            {
+                if (hit.transform.gameObject.tag == "Item")
+                {
+
+                    target = hit.transform;
+                    prevTarget.tag = hit.transform.gameObject.tag; //set it to item except I'm not hardcoding that
+                    hit.transform.gameObject.tag = "Player";
+                    
+                }
+                else
+                { //what do I set the target to if it doesn't have a transform??
+                    transform.position = Input.mousePosition;
+                }
+            }
+
+
+        }
+
+    }
+
+    void Deselect()
+    {
+
     }
     
 }
