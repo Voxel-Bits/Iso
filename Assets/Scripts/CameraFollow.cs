@@ -36,7 +36,7 @@ public class CameraFollow : MonoBehaviour {
             Zoom();
         }
 
-        Select();
+        ChangeTarget();
     }
 
     //Maybe I don't need a camera follow really?? RAther I don't need an offset!
@@ -75,7 +75,7 @@ public class CameraFollow : MonoBehaviour {
         Camera.main.orthographicSize += zoomScale;
     }
 
-    void Select()
+    void ChangeTarget()
     {
         if(Input.GetButtonDown("Fire1")) //check if mouse is pressed
         {
@@ -89,8 +89,9 @@ public class CameraFollow : MonoBehaviour {
                 {
 
                     target = hit.transform;
-                    prevTarget.tag = hit.transform.gameObject.tag; //set it to item except I'm not hardcoding that
-                    hit.transform.gameObject.tag = "Player";
+                    target.gameObject.GetComponent<CharController>().Select();
+                    prevTarget.GetComponent<CharController>().Deselect();
+                    
                     
                 }
                 else
@@ -103,10 +104,4 @@ public class CameraFollow : MonoBehaviour {
         }
 
     }
-
-    void Deselect()
-    {
-
-    }
-    
 }

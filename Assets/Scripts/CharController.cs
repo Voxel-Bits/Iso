@@ -19,13 +19,13 @@ public class CharController : MonoBehaviour {
         forward = Vector3.Normalize(forward); //set length to 1 to use for motion
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward; //Create rotation
 
-        if(tag == "Player")
+        if(checkIsSelected())
         {
-            isSelected = true;
+            Select();
         }
         else
         {
-            isSelected = false;
+            Deselect();
         }
 	}
 	
@@ -34,19 +34,19 @@ public class CharController : MonoBehaviour {
 
 		if( checkIsSelected())
         {
-            isSelected = true;
+            Select();
+            if (Input.GetButton("HorizontalKey") || Input.GetButton("VerticalKey"))
+            {
+
+                Debug.Log("Pressed: " + Input.inputString);
+                Move();
+
+            }
         }
         else
         {
-            isSelected = false;
-        }
-
-        if (Input.anyKey && isSelected)
-        {
-            Move();
-        }
-
-       
+            Deselect();
+        }       
 
 	}
 
@@ -71,5 +71,22 @@ public class CharController : MonoBehaviour {
         }
 
         return false;
+    }
+
+    public void Select()
+    {
+        if (!checkIsSelected()) //if it's not already selected, select it
+        {
+            tag = "Player";
+            isSelected = true;
+        }
+//        Debug.Log("Gameobject: " + this.name + " = is selected");
+    }
+
+    public void Deselect()
+    {
+        tag = "Item";
+        isSelected = false;
+//        Debug.Log("Gameobject: " + this.name + " = is NOT selected");
     }
 }
