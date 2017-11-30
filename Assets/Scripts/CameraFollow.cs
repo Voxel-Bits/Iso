@@ -75,6 +75,7 @@ public class CameraFollow : MonoBehaviour {
         Camera.main.orthographicSize += zoomScale;
     }
 
+    //When you click on an item/char it will be deselcted, and select what you just clicked on. The camera will also now follow what you just clicked on
     void ChangeTarget()
     {
         if(Input.GetButtonDown("Fire1")) //check if mouse is pressed
@@ -103,5 +104,12 @@ public class CameraFollow : MonoBehaviour {
 
         }
 
+    }
+
+    //the camera will follow the mouse if it's in any of the corners/edges of the game screen, even if something is selected (it will remain selected)
+    void FollowMouse()
+    {
+        //checl if the mouse is in any of the extremes of the game screen
+//        if(Input.mousePosition)
     }
 }
