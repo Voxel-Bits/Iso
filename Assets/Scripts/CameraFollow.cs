@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditor;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour {
@@ -6,6 +7,8 @@ public class CameraFollow : MonoBehaviour {
     public Transform target;  
 
     public float smoothSpeed = 0.125f;
+    public float horizontalSpeed = 10f;
+    public float verticalSpeed = 10f;
     public Vector3 offset;
 
     public float zoomScale;
@@ -14,9 +17,12 @@ public class CameraFollow : MonoBehaviour {
     float minZoom = 15f;
     float currZoom;
 
+    bool followMouse;
+
     void Start()
     {
         currZoom = Camera.main.orthographicSize;
+        followMouse = false;
         
     }
 
@@ -24,8 +30,10 @@ public class CameraFollow : MonoBehaviour {
 
     void LateUpdate() //run right after update
     {
-        
-        transform.position = target.position + offset; //update the camera's position 
+        if (!followMouse)
+        {
+            transform.position = target.position + offset; //update the camera's position 
+        }
     }
 
     void Update()
@@ -37,6 +45,8 @@ public class CameraFollow : MonoBehaviour {
         }
 
         ChangeTarget();
+
+        FollowMouse();
     }
 
     //Maybe I don't need a camera follow really?? RAther I don't need an offset!
@@ -109,7 +119,23 @@ public class CameraFollow : MonoBehaviour {
     //the camera will follow the mouse if it's in any of the corners/edges of the game screen, even if something is selected (it will remain selected)
     void FollowMouse()
     {
-        //checl if the mouse is in any of the extremes of the game screen
-//        if(Input.mousePosition)
+
+        //check if the mouse is in any of the extremes of the game screen
+        //The precompile messages are needed because Unity doesn't change the screen resolution variables while in editor mode
+#if UNITY_EDITOR
+        if (Input.mousePosition.x == 0 || Input.mousePosition.y == 0 || Input.mousePosition.x >= Handles.GetMainGameViewSize().x - 5 || Input.mousePosition.y >= Handles.GetMainGameViewSize().y - 5)
+        {
+            followMouse = true;
+            float h = horizontalSpeed * Input.GetAxis("Mouse Y");
+            float v = verticalSpeed * Input.GetAxis("Mouse X");
+            transform.Translate(v, h, 0);
+            Debug.Log("Camera position: " + "X = " + transform.position.x + " Y = " + transform.position.y + " Z = " + transform.position.z);
+        }
+#else
+        if(Input.mousePosition.x == 0 || Input.mousePosition.y == 0 || Input.mousePosition.x >= Screen.width - 5 || Input.mousePosition.y >= Screen.height - 5)
+        {
+
+        }
+#endif
     }
 }
