@@ -17,7 +17,8 @@ public class CameraFollow : MonoBehaviour {
     float minZoom = 15f;
     float currZoom;
 
-    bool followMouse;
+    [HideInInspector]
+    public bool followMouse { get; set; }
 
     void Start()
     {
@@ -123,17 +124,54 @@ public class CameraFollow : MonoBehaviour {
         //check if the mouse is in any of the extremes of the game screen
         //The precompile messages are needed because Unity doesn't change the screen resolution variables while in editor mode
 #if UNITY_EDITOR
-        if (Input.mousePosition.x == 0 || Input.mousePosition.y == 0 || Input.mousePosition.x >= Handles.GetMainGameViewSize().x - 5 || Input.mousePosition.y >= Handles.GetMainGameViewSize().y - 5)
+        if (Input.mousePosition.x == 0 || Input.mousePosition.y == 0 || 
+            Input.mousePosition.x >= Handles.GetMainGameViewSize().x - 5 || Input.mousePosition.y >= Handles.GetMainGameViewSize().y - 5)
         {
             followMouse = true;
-            float h = horizontalSpeed * Input.GetAxis("Mouse Y");
-            float v = verticalSpeed * Input.GetAxis("Mouse X");
-            transform.Translate(v, h, 0);
+
+            if(Input.mousePosition.x <= 5)//if mouse is in the left side of the window 
+            {
+                transform.position -= new Vector3(Time.deltaTime * horizontalSpeed, 0.0f, 0.0f); //I don't need input axis because I don't need a delta for how much the mouse has moved from prev position
+            }
+
+            if(Input.mousePosition.x >= Handles.GetMainGameViewSize().x - 5)
+            {
+                transform.position += new Vector3(Time.deltaTime * horizontalSpeed, 0.0f, 0.0f);
+            }
+            if(Input.mousePosition.y <= 5)
+            {
+                transform.position -= new Vector3(0.0f, Time.deltaTime * verticalSpeed, 0.0f );
+                Debug.Log("The mouse is in the bottom of the game screen");
+            }
+            if(Input.mousePosition.y >= Handles.GetMainGameViewSize().y - 5)
+            {
+                transform.position += new Vector3(0.0f, Time.deltaTime * verticalSpeed, 0.0f);
+            }
             Debug.Log("Camera position: " + "X = " + transform.position.x + " Y = " + transform.position.y + " Z = " + transform.position.z);
         }
 #else
         if(Input.mousePosition.x == 0 || Input.mousePosition.y == 0 || Input.mousePosition.x >= Screen.width - 5 || Input.mousePosition.y >= Screen.height - 5)
         {
+            followMouse = true;
+            
+            if(Input.mousePosition.x <= 5)//if mouse is in the left side of the window 
+            {
+                transform.position -= new Vector3(Time.deltaTime * horizontalSpeed, 0.0f, 0.0f); //I don't need input axis because I don't need a delta for how much the mouse has moved from prev position
+            }
+
+            if(Input.mousePosition.x >= Screen.width - 5)
+            {
+                transform.position += new Vector3(Time.deltaTime * horizontalSpeed, 0.0f, 0.0f);
+            }
+            if(Input.mousePosition.y <= 5)
+            {
+                transform.position -= new Vector3(0.0f, Time.deltaTime * verticalSpeed, 0.0f );
+                Debug.Log("The mouse is in the bottom of the game screen");
+            }
+            if(Input.mousePosition.y >= Screen.height - 5)
+            {
+                transform.position += new Vector3(0.0f, Time.deltaTime * verticalSpeed, 0.0f);
+            }
 
         }
 #endif

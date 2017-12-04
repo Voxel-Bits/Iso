@@ -10,6 +10,8 @@ public class CharController : MonoBehaviour {
     float moveSpeed = 4f;
 
     Vector3 forward, right; //forward is upward and downward for our char
+
+    [HideInInspector]
     public bool isSelected { get; set; } //idk if I want this in the inspector
 
 	// Use this for initialization
