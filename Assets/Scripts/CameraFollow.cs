@@ -97,18 +97,20 @@ public class CameraFollow : MonoBehaviour {
             GameObject prevTarget = target.gameObject;
             if(Physics.Raycast(ray, out hit)) //if it hits something, the camera should be set to it and follow it, or not if it's not an item
             {
-                if (hit.transform.gameObject.tag == "Item")
+                if (hit.transform.gameObject.tag == "Item") //if I hit an item, select it
                 {
 
                     target = hit.transform;
                     target.gameObject.GetComponent<CharController>().Select();
                     prevTarget.GetComponent<CharController>().Deselect();
+                    followMouse = false; //the camera is no longer following the mouse, it's following the char
+
                     
                     
                 }
-                else
-                { //what do I set the target to if it doesn't have a transform??
-                    transform.position = Input.mousePosition;
+                else //otherwise, deselect anything that was already selected
+                {
+                    target.gameObject.GetComponent<CharController>().Deselect();
                 }
             }
 
@@ -138,7 +140,7 @@ public class CameraFollow : MonoBehaviour {
             {
                 transform.position += new Vector3(Time.deltaTime * horizontalSpeed, 0.0f, 0.0f);
             }
-            if(Input.mousePosition.y <= 5)
+            if(Input.mousePosition.y <= 5) //TODO: this needs to move the camera halfway between z and y axes
             {
                 transform.position -= new Vector3(0.0f, Time.deltaTime * verticalSpeed, 0.0f );
                 Debug.Log("The mouse is in the bottom of the game screen");
@@ -147,7 +149,7 @@ public class CameraFollow : MonoBehaviour {
             {
                 transform.position += new Vector3(0.0f, Time.deltaTime * verticalSpeed, 0.0f);
             }
-            Debug.Log("Camera position: " + "X = " + transform.position.x + " Y = " + transform.position.y + " Z = " + transform.position.z);
+//            Debug.Log("Camera position: " + "X = " + transform.position.x + " Y = " + transform.position.y + " Z = " + transform.position.z);
         }
 #else
         if(Input.mousePosition.x == 0 || Input.mousePosition.y == 0 || Input.mousePosition.x >= Screen.width - 5 || Input.mousePosition.y >= Screen.height - 5)

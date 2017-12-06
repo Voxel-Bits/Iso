@@ -34,21 +34,24 @@ public class CharController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if( checkIsSelected())
+        if (Input.GetButtonDown("Fire1"))
         {
-            Select();
-            if (Input.GetButton("HorizontalKey") || Input.GetButton("VerticalKey"))
+            if (checkIsSelected())
             {
+                Select();
+                if (Input.GetButton("HorizontalKey") || Input.GetButton("VerticalKey"))
+                {
 
-                Debug.Log("Pressed: " + Input.inputString);
-                Move();
+                    Debug.Log("Pressed: " + Input.inputString);
+                    Move();
 
+                }
             }
-        }
-        else
-        {
-            Deselect();
-        }       
+            else
+            {
+                Deselect();
+            }
+        }      
 
 	}
 
@@ -82,13 +85,13 @@ public class CharController : MonoBehaviour {
             tag = "Player";
             isSelected = true;
         }
-//        Debug.Log("Gameobject: " + this.name + " = is selected");
+        Debug.Log("Gameobject: " + this.name + " = is selected");
     }
 
     public void Deselect()
     {
         tag = "Item";
         isSelected = false;
-//        Debug.Log("Gameobject: " + this.name + " = is NOT selected");
+        Debug.Log("Gameobject: " + this.name + " = is NOT selected");
     }
 }
