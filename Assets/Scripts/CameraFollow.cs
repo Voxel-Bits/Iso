@@ -2,6 +2,8 @@
 using UnityEditor;
 using UnityEngine;
 
+//Class for camera following
+
 public class CameraFollow : MonoBehaviour {
 
     public Transform target;  
