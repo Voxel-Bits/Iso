@@ -14,5 +14,5 @@ public class Node {
     public bool isWalkable; //for AI
     public LevelEditor.Level_Object placedObj; //the main object on the node
     public List<LevelEditor.Level_Object> stackedObjs = new List<LevelEditor.Level_Object>();
-    public LevelEditor.Level_WallObj wallObj;
+    //public LevelEditor.Level_WallObj wallObj;
 }
