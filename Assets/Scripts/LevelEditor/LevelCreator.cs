@@ -43,18 +43,18 @@ namespace LevelEditor
             manager = LevelManager.GetInstance();
             ui = InterfaceManager.GetInstance();
 
-            PaintAll();
+//            PaintAll();
         }
 
         void Update()
         {
             PlaceObject();
-            PaintTile();
+//            PaintTile();
             DeleteObjs();
-            PlaceStackedObj();
-            CreateWall();
-            DeleteStackedObjs();
-            DeleteWallsActual();
+//            PlaceStackedObj();
+//            CreateWall();
+ //           DeleteStackedObjs();
+//            DeleteWallsActual();
         }
 
         void UpdateMousePosition()
@@ -190,10 +190,10 @@ namespace LevelEditor
             hasObj = false;
             deleteObj = false;
             paintTile = false;
-            placeStackObj = false;
+//            placeStackObj = false;
             createWall = false;
             hasMaterial = false;
-            deleteStackObj = false;
+//            deleteStackObj = false;
             deleteWall = false;
         }
     }
