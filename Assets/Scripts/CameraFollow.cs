@@ -131,7 +131,7 @@ public class CameraFollow : MonoBehaviour {
         if (Input.mousePosition.x == 0 || Input.mousePosition.y == 0 || 
             Input.mousePosition.x >= Handles.GetMainGameViewSize().x - 5 || Input.mousePosition.y >= Handles.GetMainGameViewSize().y - 5)
         {
-            followMouse = true;
+ //           followMouse = true;
 
             if(Input.mousePosition.x <= 5)//if mouse is in the left side of the window 
             {
