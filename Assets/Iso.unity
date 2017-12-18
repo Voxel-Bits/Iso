@@ -1555,7 +1555,11 @@ MonoBehaviour:
     objPrefab: {fileID: 1933912902771118, guid: 09e535be10df34840985d1fade9d218e,
       type: 2}
   LevelGameObjects_Stacking: []
-  LevelMaterials: []
+  LevelMaterials:
+  - {fileID: 2100000, guid: 0d6355958859973499d05d85a6d9c0e7, type: 2}
+  - {fileID: 2100000, guid: 4a606b50c69cccf4baf32a0e9e20532b, type: 2}
+  - {fileID: 2100000, guid: d5cbeb7b82c51754dbfb9f1669f0e1ef, type: 2}
+  - {fileID: 2100000, guid: 6ed9567375e193f40960b619287c18ea, type: 2}
   wallPrefab: {fileID: 0}
 --- !u!1 &1693717651
 GameObject:
