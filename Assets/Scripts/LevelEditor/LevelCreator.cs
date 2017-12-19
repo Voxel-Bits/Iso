@@ -364,14 +364,98 @@ namespace LevelEditor
 
         #region Wall Creation
 
+
+        //Function for wall creation button
         public void OpenWallCreation()
         {
-
+            CloseAll();
+            createWall = true;
         }
 
         void CreateWall()
         {
+            if(createWall)
+            {
+                UpdateMousePosition();
 
+                Node curNode = gridBase.NodeFromWorldPosition(mousePosition);
+
+                worldPosition = curNode.vis.transform.position;
+
+                //If we haven't clicked at all yet
+                if(startNode_Wall == null)
+                {
+                    //the first time you clicked is the first part of the wall
+                    if(Input.GetMouseButtonUp(0) && !ui.mouseOverUIElement)
+                    {
+                        startNode_Wall = curNode;
+                    }
+                }else
+                {
+                    //clicking again 
+                    if(Input.GetMouseButtonUp(0) && !ui.mouseOverUIElement)
+                    {
+                        endNodeWall = curNode;
+                    }
+                }
+
+
+                //we only have the start node and the end node, how do we determine what the end result will look like?
+                if(startNode_Wall != null && endNodeWall !=null)
+                {
+                    //get the differences between the x and y positions of both nodes, then we will know how far away they are
+                    int difX = endNodeWall.nodePosX - startNode_Wall.nodePosX;
+                    int difZ = endNodeWall.nodePosZ - startNode_Wall.nodePosZ;
+
+                    CreateWallInNode(startNode_Wall.nodePosX, startNode_Wall.nodePosZ, Level_WallObj.WallDirection.ab);
+
+                    Node finalXNode = null;
+                    Node finalZNode = null;
+
+                    //check only for x differences, if the player didn't just click on the same node.
+                    //This only checks if they do a horizontal wall placement
+                    if(difX != 0)
+                    {
+                        bool xHigher = (difX > 0);
+
+                        //plus 1 so it doesn't ignore the last node
+                        for(int i = 1; i < Mathf.Abs(difX) + 1; i++)
+                        {
+                            int offset = xHigher ? i : -i; //this is so we don't need two for loops
+                            int posX = startNode_Wall.nodePosX + offset;
+                            int posZ = startNode_Wall.nodePosZ;
+
+                            if(posX < 0)
+                            {
+                                posX = 0;
+                            }
+                            if(posX > gridBase.sizeX)
+                            {
+                                posX = gridBase.sizeX;
+                            }
+                            if(posZ < 0)
+                            {
+                                posZ = 0;
+                            }
+                            if(posZ > gridBase.sizeZ)
+                            {
+                                posZ = gridBase.sizeZ;
+                            }
+
+                            finalXNode = gridBase.grid[posX, posZ];
+
+                            Level_WallObj.WallDirection targetDir = Level_WallObj.WallDirection.ab;
+
+                            CreateWallInNode(posX, posZ, targetDir);
+
+                        }
+
+                        UpdateWallCorners(xHigher ? endNodeWall : startNode_Wall, true, false, xHigher ? false : false);
+
+                        UpdateWallCorners(xHigher ? startNode_Wall : endNodeWall, false, true, xHigher ? false : false);
+                    }
+                }
+            }
         }
 
         void CreateWallOrUpdateNode(Node getNode, Level_WallObj.WallDirection direction)
@@ -384,24 +468,54 @@ namespace LevelEditor
 
         }
 
+        //actually create the wall in the node
         void CreateWallInNode(int posX, int posZ, Level_WallObj.WallDirection direction)
         {
+            Node getNode = gridBase.grid[posX, posZ];
 
+            Vector3 wallPosition = getNode.vis.transform.position;
+
+            //if there's no wall in the node yet
+            if(getNode.wallObj == null)
+            {
+                GameObject actualObjPlaced = Instantiate(wallPrefab, wallPosition, Quaternion.identity) as GameObject;
+                Level_Object placedObjProperties = actualObjPlaced.GetComponent<Level_Object>();
+                Level_WallObj placedWallProperties = actualObjPlaced.GetComponent<Level_WallObj>();
+
+                placedObjProperties.gridPosX = posX;
+                placedObjProperties.gridPosZ = posZ;
+                manager.inSceneWalls.Add(actualObjPlaced);
+                getNode.wallObj = placedWallProperties;
+
+                UpdateWallNode(getNode, direction);
+            }else
+            {
+                //we don't need to update the wall properties, so we only update the corners as necIessary
+                UpdateWallNode(getNode, direction);
+            }
+
+            UpdateWallCorners(getNode, false, false, false);
         }
 
         void UpdateWallNode(Node getNode, Level_WallObj.WallDirection direction)
         {
 
+            getNode.wallObj.UpdateWall(direction);
+            
         }
 
         void UpdateWallCorners(Node getNode, bool a, bool b, bool c)
         {
-
+            if(getNode.wallObj != null)
+            {
+                getNode.wallObj.UpdateCorners(a, b, c);
+            }
         }
 
         public void DeleteWall()
         {
-
+            CloseAll();
+            deleteWall = true;
         }
 
         void DeleteWallsActual()
