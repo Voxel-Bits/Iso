@@ -1,6 +1,7 @@
 var annotated_dup =
 [
     [ "LevelEditor", "namespace_level_editor.html", "namespace_level_editor" ],
+    [ "TornadoBanditsStudio", "namespace_tornado_bandits_studio.html", "namespace_tornado_bandits_studio" ],
     [ "CameraFollow", "class_camera_follow.html", "class_camera_follow" ],
     [ "CharController", "class_char_controller.html", "class_char_controller" ],
     [ "DoxygenConfig", "class_doxygen_config.html", "class_doxygen_config" ],

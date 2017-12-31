@@ -1,6 +1,7 @@
 var searchData=
 [
   ['init',['Init',['../class_doxygen_window.html#a48f456c44b07cc9283a0583579b1d65a',1,'DoxygenWindow']]],
+  ['initializepresentationwindow',['InitializePresentationWindow',['../class_tornado_bandits_studio_1_1_low_poly_free_pack_1_1_t_b_s___presentation_window.html#ad37d231ce5d27f6ec1ed18c9b2825c0b',1,'TornadoBanditsStudio::LowPolyFreePack::TBS_PresentationWindow']]],
   ['inscenegameobjects',['inSceneGameObjects',['../class_level_manager.html#a9f977c2f226daec9d64876621ea15c2b',1,'LevelManager']]],
   ['inscenestackobjects',['inSceneStackObjects',['../class_level_manager.html#a5c52b213a0a9b5bda5653021a1f52332',1,'LevelManager']]],
   ['inscenewalls',['inSceneWalls',['../class_level_manager.html#ab34e6c436bda5fdb2e050c594af9416a',1,'LevelManager']]],

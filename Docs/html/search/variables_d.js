@@ -1,5 +1,7 @@
 var searchData=
 [
+  ['randomheight',['randomHeight',['../class_tornado_bandits_studio_1_1_low_poly_free_pack_1_1_t_b_s___water.html#ad990d69fd620b2d66c124b5e5ff3699c',1,'TornadoBanditsStudio::LowPolyFreePack::TBS_Water']]],
+  ['randomspeed',['randomSpeed',['../class_tornado_bandits_studio_1_1_low_poly_free_pack_1_1_t_b_s___water.html#a518c0c415c00774e5dc9e58ab2a04939',1,'TornadoBanditsStudio::LowPolyFreePack::TBS_Water']]],
   ['rotatedegrees',['rotateDegrees',['../class_level_editor_1_1_level___object.html#a04f35ea9fe73407c76ec78270c28714f',1,'LevelEditor::Level_Object']]],
   ['rotx',['rotX',['../class_level_editor_1_1_saveable_level_object.html#a8b73b5b1574ab0bba8ec189f7a57a900',1,'LevelEditor::SaveableLevelObject']]],
   ['roty',['rotY',['../class_level_editor_1_1_saveable_level_object.html#a409897b5f95dadef4c7f3cbcc1997854',1,'LevelEditor::SaveableLevelObject']]],

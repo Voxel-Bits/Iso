@@ -26,6 +26,10 @@ namespace LevelEditor
         public List<Wall_Base> wallsList = new List<Wall_Base>();
         public List<Corner_Base> cornersList = new List<Corner_Base>();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="direction"></param>
         public void UpdateWall(WallDirection direction)
         {
             wallsList[0].active = false;

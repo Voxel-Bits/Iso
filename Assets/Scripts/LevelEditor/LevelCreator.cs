@@ -65,6 +65,7 @@ namespace LevelEditor
             DeleteWallsActual();
         }
 
+        
         void UpdateMousePosition()
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -365,7 +366,10 @@ namespace LevelEditor
         #region Wall Creation
 
 
-        //Function for wall creation button
+        ///
+        /// <summary>
+        /// Function for wall creation button
+        /// </summary>
         public void OpenWallCreation()
         {
             CloseAll();
@@ -374,7 +378,7 @@ namespace LevelEditor
 
         void CreateWall()
         {
-            if(createWall)
+            if (createWall)
             {
                 UpdateMousePosition();
 
@@ -383,17 +387,18 @@ namespace LevelEditor
                 worldPosition = curNode.vis.transform.position;
 
                 //If we haven't clicked at all yet
-                if(startNode_Wall == null)
+                if (startNode_Wall == null)
                 {
                     //the first time you clicked is the first part of the wall
-                    if(Input.GetMouseButtonUp(0) && !ui.mouseOverUIElement)
+                    if (Input.GetMouseButtonUp(0) && !ui.mouseOverUIElement)
                     {
                         startNode_Wall = curNode;
                     }
-                }else
+                }
+                else
                 {
                     //clicking again 
-                    if(Input.GetMouseButtonUp(0) && !ui.mouseOverUIElement)
+                    if (Input.GetMouseButtonUp(0) && !ui.mouseOverUIElement)
                     {
                         endNodeWall = curNode;
                     }
@@ -401,7 +406,7 @@ namespace LevelEditor
 
 
                 //we only have the start node and the end node, how do we determine what the end result will look like?
-                if(startNode_Wall != null && endNodeWall !=null)
+                if (startNode_Wall != null && endNodeWall != null)
                 {
                     //get the differences between the x and y positions of both nodes, then we will know how far away they are
                     int difX = endNodeWall.nodePosX - startNode_Wall.nodePosX;
@@ -414,30 +419,30 @@ namespace LevelEditor
 
                     //check only for x differences, if the player didn't just click on the same node.
                     //This only checks if they do a horizontal wall placement
-                    if(difX != 0)
+                    if (difX != 0)
                     {
                         bool xHigher = (difX > 0);
 
                         //plus 1 so it doesn't ignore the last node
-                        for(int i = 1; i < Mathf.Abs(difX) + 1; i++)
+                        for (int i = 1; i < Mathf.Abs(difX) + 1; i++)
                         {
                             int offset = xHigher ? i : -i; //this is so we don't need two for loops
                             int posX = startNode_Wall.nodePosX + offset;
                             int posZ = startNode_Wall.nodePosZ;
 
-                            if(posX < 0)
+                            if (posX < 0)
                             {
                                 posX = 0;
                             }
-                            if(posX > gridBase.sizeX)
+                            if (posX > gridBase.sizeX)
                             {
                                 posX = gridBase.sizeX;
                             }
-                            if(posZ < 0)
+                            if (posZ < 0)
                             {
                                 posZ = 0;
                             }
-                            if(posZ > gridBase.sizeZ)
+                            if (posZ > gridBase.sizeZ)
                             {
                                 posZ = gridBase.sizeZ;
                             }
@@ -450,22 +455,270 @@ namespace LevelEditor
 
                         }
 
-                        UpdateWallCorners(xHigher ? endNodeWall : startNode_Wall, true, false, xHigher ? false : false);
+                        UpdateWallCorners(xHigher ? endNodeWall : startNode_Wall,
+                            true,
+                            false,
+                            false);
 
-                        UpdateWallCorners(xHigher ? startNode_Wall : endNodeWall, false, true, xHigher ? false : false);
+                        UpdateWallCorners(xHigher ? startNode_Wall : endNodeWall,
+                            false,
+                            true,
+                            false);
+
                     }
+
+                    //checks for vertical wall placement only
+                    if (difZ != 0)
+                    {
+
+                        bool zHigher = (difZ > 0);
+
+                        for (int i = 1; i < Mathf.Abs(difZ) + 1; i++)
+                        {
+                            int offset = zHigher ? i : -i;
+                            int posX = startNode_Wall.nodePosX;
+                            int posZ = startNode_Wall.nodePosZ + offset;
+
+                            if (posX < 0)
+                            {
+                                posX = 0;
+                            }
+
+                            if (posX > gridBase.sizeX)
+                            {
+                                posX = gridBase.sizeX;
+                            }
+                            if (posZ < 0)
+                            {
+                                posZ = 0;
+                            }
+                            if (posZ > gridBase.sizeZ)
+                            {
+                                posZ = gridBase.sizeZ;
+                            }
+
+                            Level_WallObj.WallDirection targetDir = Level_WallObj.WallDirection.bc;
+
+                            finalZNode = gridBase.grid[posX, posZ];
+                            CreateWallInNode(posX, posZ, targetDir);
+
+                        }
+
+                        UpdateWallNode(startNode_Wall, Level_WallObj.WallDirection.bc);
+
+                        UpdateWallCorners(zHigher ? startNode_Wall : finalZNode,
+                            false,
+                            true,
+                            false);
+
+                        UpdateWallCorners(zHigher ? finalZNode : startNode_Wall,
+                            false,
+                            false,
+                            true);
+
+                    }
+
+                    //checks for both vertical and horizontal wall placement
+                    if (difX != 0 && difZ != 0)
+                    {
+                        bool zHigher = (difZ > 0);
+                        bool xHigher = (difX > 0);
+
+                        for (int i = 1; i < Mathf.Abs(difX) + 1; i++)
+                        {
+                            int offset = xHigher ? i : -i;
+                            int posX = startNode_Wall.nodePosX + offset;
+                            int posZ = endNodeWall.nodePosZ;
+
+                            if (posX < 0)
+                            {
+                                posX = 0;
+                            }
+                            if (posX > gridBase.sizeX)
+                            {
+                                posX = gridBase.sizeX;
+                            }
+                            if (posZ < 0)
+                            {
+                                posZ = 0;
+                            }
+                            if (posZ > gridBase.sizeZ)
+                            {
+                                posZ = gridBase.sizeZ;
+                            }
+
+                            Level_WallObj.WallDirection targetDir = Level_WallObj.WallDirection.ab;
+
+                            CreateWallInNode(posX, posZ, targetDir);
+                        }
+
+
+                        for (int i = 1; i < Mathf.Abs(difZ) + 1; i++)
+                        {
+                            int offset = zHigher ? i : -i;
+                            int posX = endNodeWall.nodePosX;
+                            int posZ = startNode_Wall.nodePosZ + offset;
+
+                            if (posX < 0)
+                            {
+                                posX = 0;
+                            }
+                            if (posX > gridBase.sizeX)
+                            {
+                                posX = gridBase.sizeX;
+                            }
+                            if (posZ < 0)
+                            {
+                                posZ = 0;
+                            }
+                            if (posZ > gridBase.sizeZ)
+                            {
+                                posZ = gridBase.sizeZ;
+                            }
+
+                            Level_WallObj.WallDirection targetDir = Level_WallObj.WallDirection.bc;
+
+                            CreateWallInNode(posX, posZ, targetDir);
+                        }
+
+                        if (startNode_Wall.nodePosZ > endNodeWall.nodePosZ)
+                        {
+                            #region From Up To Down
+                            manager.inSceneWalls.Remove(finalXNode.wallObj.gameObject);
+                            Destroy(finalXNode.wallObj.gameObject);
+                            finalXNode.wallObj = null;
+
+                            UpdateWallNode(finalZNode, Level_WallObj.WallDirection.all);
+                            UpdateWallNode(endNodeWall, Level_WallObj.WallDirection.bc);
+
+                            if (startNode_Wall.nodePosX > endNodeWall.nodePosX)
+                            {
+                                #region End node is southwest of the start node
+
+                                //furthest node on the x
+                                CreateWallOrUpdateNode(finalXNode, Level_WallObj.WallDirection.ab);
+                                UpdateWallCorners(finalXNode, false, true, false);
+
+                                //the end furthest to the south
+                                CreateWallOrUpdateNode(finalZNode, Level_WallObj.WallDirection.bc);
+                                UpdateWallCorners(finalZNode, false, true, false);
+
+                                //the first node the player clicked
+                                //Destroy that node and get the one next to it
+                                Node nextToStartNode = DestroyCurrentNodeAndGetPrevious(startNode_Wall, true);
+                                UpdateWallCorners(nextToStartNode, true, false, false);
+
+                                //the end node the player clicked
+                                CreateWallOrUpdateNode(endNodeWall, Level_WallObj.WallDirection.all);
+                                UpdateWallCorners(endNodeWall, false, true, false);
+
+                                #endregion
+                            }
+                            else
+                            {
+                                #region End Node is southeast
+                                //the furthest nodeon the x
+                                Node beforeFinalX = DestroyCurrentNodeAndGetPrevious(finalXNode, true);
+                                UpdateWallCorners(beforeFinalX, true, false, false);
+
+                                //the end node furthest to the south
+                                CreateWallOrUpdateNode(finalZNode, Level_WallObj.WallDirection.all);
+                                UpdateWallCorners(finalZNode, false, true, false);
+
+                                //the first node the player clicked
+                                //Destroy that node and get the one next to him
+
+                                CreateWallOrUpdateNode(startNode_Wall, Level_WallObj.WallDirection.ab);
+                                UpdateWallCorners(startNode_Wall, false, true, false);
+
+                                //the end node the player clicked
+                                CreateWallOrUpdateNode(endNodeWall, Level_WallObj.WallDirection.bc);
+                                UpdateWallCorners(endNodeWall, false, true, false);
+                                #endregion
+                            }
+                            #endregion
+                        }
+                        else
+                        {
+                            #region Down To Up
+
+                            if (startNode_Wall.nodePosX > endNodeWall.nodePosX)
+                            {
+                                #region End node is northwest of the start node
+                                //the furthest node is on the northeast
+                                Node northWestNode = DestroyCurrentNodeAndGetPrevious(finalZNode, true);
+                                UpdateWallCorners(northWestNode, true, false, false);
+
+                                //the end furthest of the southwest
+                                CreateWallOrUpdateNode(finalXNode, Level_WallObj.WallDirection.all);
+                                UpdateWallCorners(finalXNode, false, true, false);
+
+                                //the first node the player clicked
+                                //destroy that node and get the one next to it
+                                CreateWallOrUpdateNode(startNode_Wall, Level_WallObj.WallDirection.bc);
+                                UpdateWallCorners(startNode_Wall, false, true, false);
+
+                                //the end node the player clicked
+                                CreateWallOrUpdateNode(endNodeWall, Level_WallObj.WallDirection.ab);
+                                UpdateWallCorners(endNodeWall, false, true, false);
+                                #endregion
+                            }
+                            else
+                            {
+                                #region End node is southeast
+                                //the furthest node on the northwest
+                                CreateWallOrUpdateNode(finalZNode, Level_WallObj.WallDirection.ab);
+                                UpdateWallCorners(finalZNode, false, true, false);
+
+                                //the end furthest to the southeast
+                                CreateWallOrUpdateNode(finalXNode, Level_WallObj.WallDirection.bc);
+                                UpdateWallCorners(finalXNode, false, true, false);
+
+                                //the furthst node the player clicked
+                                CreateWallOrUpdateNode(startNode_Wall, Level_WallObj.WallDirection.all);
+                                UpdateWallCorners(startNode_Wall, false, true, false);
+                                #endregion
+                            }
+                            #endregion
+                        }
+
+                    }
+
+                    startNode_Wall = null;
+                    endNodeWall = null;
                 }
-            }
+            }  
+            
         }
 
         void CreateWallOrUpdateNode(Node getNode, Level_WallObj.WallDirection direction)
         {
-
+            if(getNode.wallObj == null)
+            {
+                CreateWallInNode(getNode.nodePosX, getNode.nodePosZ, direction);
+            }
+            else
+            {
+                UpdateWallNode(getNode, direction);
+            }
         }
 
-        Node DestroyCurentNodeAndGetPrevious(Node curNode, bool positive)
+        Node DestroyCurrentNodeAndGetPrevious(Node curNode, bool positive)
         {
+            int i = (positive) ? 1 : -1;
+            Node beforeCurNode = gridBase.grid[curNode.nodePosX - i, curNode.nodePosZ];
 
+            if(curNode.wallObj != null)
+            {
+                if(manager.inSceneWalls.Contains(curNode.wallObj.gameObject))
+                {
+                    manager.inSceneWalls.Remove(curNode.wallObj.gameObject);
+                    Destroy(curNode.wallObj.gameObject);
+                    curNode.wallObj = null;
+                }
+            }
+
+            return beforeCurNode;
         }
 
         //actually create the wall in the node
@@ -520,7 +773,25 @@ namespace LevelEditor
 
         void DeleteWallsActual()
         {
+            if(deleteWall)
+            {
+                UpdateMousePosition();
 
+                Node curNode = gridBase.NodeFromWorldPosition(mousePosition);
+
+                if(Input.GetMouseButton(0) & !ui.mouseOverUIElement)
+                {
+                    if(curNode.wallObj != null)
+                    {
+                        if(manager.inSceneWalls.Contains(curNode.wallObj.gameObject))
+                        {
+                            manager.inSceneWalls.Remove(curNode.wallObj.gameObject);
+                            Destroy(curNode.wallObj.gameObject);
+                        }
+                        curNode.wallObj = null;
+                    }
+                }
+            }
         }
         #endregion
 

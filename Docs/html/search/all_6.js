@@ -5,7 +5,7 @@ var searchData=
   ['getmaterial',['GetMaterial',['../class_level_editor_1_1_resources_manager.html#addc03f672e5a0479f324b757ef99cf91',1,'LevelEditor::ResourcesManager']]],
   ['getmaterialid',['GetMaterialId',['../class_level_editor_1_1_resources_manager.html#a882eaf3bf17d2e818c68d8924ad4e2b0',1,'LevelEditor::ResourcesManager']]],
   ['getobjbase',['GetObjBase',['../class_level_editor_1_1_resources_manager.html#a68acdc873b8be66f34e92651298b1ba8',1,'LevelEditor::ResourcesManager']]],
-  ['getsaveable',['GetSaveable',['../class_node_object.html#a043819a08c51779e44e2c7dc8950da1d',1,'NodeObject']]],
+  ['getsaveable',['GetSaveable',['../class_level_editor_1_1_level___wall_obj.html#a2afaf0aaa05df2d84a8985faaeb2d405',1,'LevelEditor.Level_WallObj.GetSaveable()'],['../class_node_object.html#a043819a08c51779e44e2c7dc8950da1d',1,'NodeObject.GetSaveable()']]],
   ['getsaveableobject',['GetSaveableObject',['../class_level_editor_1_1_level___object.html#aac1edea0baaa9692585ea478460416f7',1,'LevelEditor::Level_Object']]],
   ['getstackobjbase',['GetStackObjBase',['../class_level_editor_1_1_resources_manager.html#aece2d7c9ad67333a2023f173e84559b8',1,'LevelEditor::ResourcesManager']]],
   ['grid',['grid',['../class_grid_base.html#aa787e5ff3073754769d9b66cfa0cfecc',1,'GridBase']]],
