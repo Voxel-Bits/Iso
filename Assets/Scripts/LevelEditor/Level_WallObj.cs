@@ -8,6 +8,9 @@ namespace LevelEditor
 
     //for corner walls you need 2 'walls' or planes essentially, and the direction the wall corner will be facing
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class Level_WallObj : MonoBehaviour
     {
 
@@ -61,6 +64,13 @@ namespace LevelEditor
 
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
         public void UpdateCorners(bool a, bool b, bool c)
         {
             cornersList[0].corner.SetActive(a);
@@ -73,6 +83,11 @@ namespace LevelEditor
         }
 
         //take the properties we want to be saved
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public WallObjectSaveableProperties GetSaveable()
         {
             WallObjectSaveableProperties s = new WallObjectSaveableProperties();
@@ -86,6 +101,10 @@ namespace LevelEditor
 
     }
 
+
+    /// <summary>
+    /// 
+    /// </summary>
     [Serializable]
     public class WallObjectSaveableProperties
     {
@@ -95,6 +114,10 @@ namespace LevelEditor
         public bool corner_c;
     }
 
+
+    /// <summary>
+    /// 
+    /// </summary>
     [Serializable]
     public class Wall_Base
     {
@@ -102,6 +125,10 @@ namespace LevelEditor
         public GameObject wall;
     }
 
+
+    /// <summary>
+    /// 
+    /// </summary>
     [Serializable]
     public class Corner_Base
     {

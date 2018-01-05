@@ -4,6 +4,9 @@ using UnityEngine;
 
 
 
+/// <summary>
+/// 
+/// </summary>
 public class CharController : MonoBehaviour {
 
     [SerializeField] //can modify in inspector without making it public
@@ -15,7 +18,11 @@ public class CharController : MonoBehaviour {
     public bool isSelected { get; set; } //idk if I want this in the inspector
 
 	// Use this for initialization
-	void Start () {
+
+	/// <summary>
+    /// 
+    /// </summary>
+    void Start () {
         forward = Camera.main.transform.forward; //Camera is 45 degrees, assign to our Char forward vec
         forward.y = 0;
         forward = Vector3.Normalize(forward); //set length to 1 to use for motion
@@ -32,7 +39,11 @@ public class CharController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+
+	/// <summary>
+    /// 
+    /// </summary>
+    void Update () {
 
         if (Input.GetButtonDown("Fire1"))
         {
@@ -56,6 +67,10 @@ public class CharController : MonoBehaviour {
 	}
 
     //The character will move isometric up/down and left/right instread of 3D up/down and left/right
+
+    /// <summary>
+    /// 
+    /// </summary>
     void Move()
     {
         Vector3 rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxis("HorizontalKey"); //positive or negative direction for left/right
@@ -68,6 +83,10 @@ public class CharController : MonoBehaviour {
         transform.position += upMovement;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     bool checkIsSelected()
     {
         if(tag == "Player")
@@ -78,6 +97,9 @@ public class CharController : MonoBehaviour {
         return false;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void Select()
     {
         if (!checkIsSelected()) //if it's not already selected, select it
@@ -88,6 +110,9 @@ public class CharController : MonoBehaviour {
         Debug.Log("Gameobject: " + this.name + " = is selected");
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void Deselect()
     {
         tag = "Item";

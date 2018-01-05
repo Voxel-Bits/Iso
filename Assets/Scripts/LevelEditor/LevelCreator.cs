@@ -5,6 +5,9 @@ using UnityEngine;
 namespace LevelEditor
 {
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class LevelCreator : MonoBehaviour
     {
 
@@ -45,6 +48,10 @@ namespace LevelEditor
         public Material[] wallPlacementMat;
         bool deleteWall;
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         void Start()
         {
             gridBase = GridBase.GetInstance();
@@ -54,6 +61,10 @@ namespace LevelEditor
             PaintAll();
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         void Update()
         {
             PlaceObject();
@@ -66,6 +77,9 @@ namespace LevelEditor
         }
 
         
+        /// <summary>
+        /// 
+        /// </summary>
         void UpdateMousePosition()
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -80,6 +94,10 @@ namespace LevelEditor
         #region Place Objects
 
         //IF the mouse button is clicked place the objects
+
+        /// <summary>
+        /// 
+        /// </summary>
         void PlaceObject()
         {
             if(hasObj)
@@ -134,6 +152,11 @@ namespace LevelEditor
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="objId"></param>
         public void PassGameObjectToPlace(string objId)
         {
             //if there's something already in the node, delete it and place the new object
@@ -148,6 +171,10 @@ namespace LevelEditor
             objToPlace = ResourcesManager.GetInstance().GetObjBase(objId).objPrefab;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         void DeleteObjs()
         {
             if(deleteObj)
@@ -173,6 +200,10 @@ namespace LevelEditor
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void DeleteObj()
         {
             CloseAll();
@@ -183,6 +214,9 @@ namespace LevelEditor
 
         #region Tile Painting
 
+        /// <summary>
+        /// 
+        /// </summary>
         void PaintTile()
         {
             if(hasMaterial)
@@ -237,6 +271,11 @@ namespace LevelEditor
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="matId"></param>
         public void PassMaterialToPaint(int matId)
         {
             deleteObj = false;
@@ -246,6 +285,10 @@ namespace LevelEditor
             hasMaterial = true;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void PaintAll()
         {
             for(int x = 0; x < gridBase.sizeX; x++)
@@ -265,6 +308,10 @@ namespace LevelEditor
 
         #region Stacked Objects
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="objId"></param>
         public void PassStackedObjectToPlace(string objId)
         {
             if(stackCloneObj != null)
@@ -280,6 +327,10 @@ namespace LevelEditor
 
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         void PlaceStackedObj()
         {
             if(placeStackObj)
@@ -328,12 +379,20 @@ namespace LevelEditor
 
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void DeleteStackObj()
         {
             CloseAll();
             deleteStackObj = true;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         void DeleteStackObjs()
         {
             if(deleteStackObj)
@@ -376,6 +435,10 @@ namespace LevelEditor
             createWall = true;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         void CreateWall()
         {
             if (createWall)
@@ -691,6 +754,12 @@ namespace LevelEditor
             
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="getNode"></param>
+        /// <param name="direction"></param>
         void CreateWallOrUpdateNode(Node getNode, Level_WallObj.WallDirection direction)
         {
             if(getNode.wallObj == null)
@@ -703,6 +772,13 @@ namespace LevelEditor
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="curNode"></param>
+        /// <param name="positive"></param>
+        /// <returns></returns>
         Node DestroyCurrentNodeAndGetPrevious(Node curNode, bool positive)
         {
             int i = (positive) ? 1 : -1;
@@ -722,6 +798,13 @@ namespace LevelEditor
         }
 
         //actually create the wall in the node
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="posX"></param>
+        /// <param name="posZ"></param>
+        /// <param name="direction"></param>
         void CreateWallInNode(int posX, int posZ, Level_WallObj.WallDirection direction)
         {
             Node getNode = gridBase.grid[posX, posZ];
@@ -750,6 +833,12 @@ namespace LevelEditor
             UpdateWallCorners(getNode, false, false, false);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="getNode"></param>
+        /// <param name="direction"></param>
         void UpdateWallNode(Node getNode, Level_WallObj.WallDirection direction)
         {
 
@@ -757,6 +846,14 @@ namespace LevelEditor
             
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="getNode"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
         void UpdateWallCorners(Node getNode, bool a, bool b, bool c)
         {
             if(getNode.wallObj != null)
@@ -764,13 +861,21 @@ namespace LevelEditor
                 getNode.wallObj.UpdateCorners(a, b, c);
             }
         }
+        
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void DeleteWall()
         {
             CloseAll();
             deleteWall = true;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         void DeleteWallsActual()
         {
             if(deleteWall)
@@ -796,6 +901,9 @@ namespace LevelEditor
         #endregion
 
 
+        /// <summary>
+        /// 
+        /// </summary>
         void CloseAll()
         {
             hasObj = false;

@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// 
+/// </summary>
 public class GridBase : MonoBehaviour
 {
 
@@ -14,11 +18,20 @@ public class GridBase : MonoBehaviour
     public Node[,] grid;
 
     private static GridBase instance = null; //there shall only be 1 instance of the gridbase
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public static GridBase GetInstance() //singleton
     {
         return instance;
     }
 
+
+    /// <summary>
+    /// 
+    /// </summary>
     void Awake()
     {
         instance = this;
@@ -27,6 +40,10 @@ public class GridBase : MonoBehaviour
 
     }
 
+
+    /// <summary>
+    /// 
+    /// </summary>
     void CreateGrid()
     {
         grid = new Node[sizeX, sizeZ];
@@ -57,6 +74,10 @@ public class GridBase : MonoBehaviour
     }
 
     //Our prefabs for each node will not contain colliders because we'll have x*z amount of colliders
+
+    /// <summary>
+    /// 
+    /// </summary>
     void CreateMouseCollision()
     {
         GameObject go = new GameObject();
@@ -66,6 +87,12 @@ public class GridBase : MonoBehaviour
     }
 
     //raycast hit into node position
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="worldPosition"></param>
+    /// <returns></returns>
     public Node NodeFromWorldPosition(Vector3 worldPosition)
     {
         float worldX = worldPosition.x;

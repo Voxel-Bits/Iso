@@ -5,6 +5,10 @@ using UnityEngine;
 
 //Grid is made up of Nodes that tell you its position, the tile, if AI can talk on it, the objects currently on it
 //From Sharp Accent tutorial
+
+/// <summary>
+/// 
+/// </summary>
 public class Node {
 
     public int nodePosX;

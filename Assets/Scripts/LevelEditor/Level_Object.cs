@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace LevelEditor
 {
+
+    /// <summary>
+    /// 
+    /// </summary>
     public class Level_Object : MonoBehaviour
     {
 
@@ -20,6 +24,11 @@ namespace LevelEditor
 
         public float rotateDegrees = 90; //how much do you want the model to rotate by when placing in the world
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="grid"></param>
         public void UpdateNode(Node[,] grid)
         {
             Node node = grid[gridPosX, gridPosZ];
@@ -29,6 +38,10 @@ namespace LevelEditor
             transform.position = worldPosition;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void ChangeRotation()
         {
             Vector3 eulerAngles = transform.eulerAngles;
@@ -36,6 +49,11 @@ namespace LevelEditor
             transform.localRotation = Quaternion.Euler(eulerAngles);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public SaveableLevelObject GetSaveableObject()
         {
             SaveableLevelObject savedObj = new SaveableLevelObject();
@@ -54,6 +72,10 @@ namespace LevelEditor
             return savedObj;
         }
     }
+
+        /// <summary>
+        /// 
+        /// </summary>
         [System.Serializable]
         public class SaveableLevelObject
         {

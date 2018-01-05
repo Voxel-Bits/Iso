@@ -5,6 +5,10 @@ using UnityEngine;
 namespace LevelEditor
 {
     //Calls all the lists of resources
+
+    /// <summary>
+    /// 
+    /// </summary>
     public class ResourcesManager : MonoBehaviour
     {
         public List<LevelGameObjectBase> LevelGameObjects = new List<LevelGameObjectBase>();
@@ -14,17 +18,31 @@ namespace LevelEditor
 
         private static ResourcesManager instance = null;
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         void Awake()
         {
             instance = this;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static ResourcesManager GetInstance()
         {
             return instance;
         }
 
-        //check if the lvl game obj base is already in the level
+
+        /// <summary>
+        /// check if the lvl game obj base is already in the level
+        /// </summary>
+        /// <param name="objId"></param>
+        /// <returns></returns>
         public LevelGameObjectBase GetObjBase(string objId)
         {
             LevelGameObjectBase retVal = null;
@@ -41,7 +59,13 @@ namespace LevelEditor
             return retVal;
         }
 
-        //check if the level stacked obj base is already in the level
+        
+
+        /// <summary>
+        /// check if the level stacked obj base is already in the level
+        /// </summary>
+        /// <param name="stack_id"></param>
+        /// <returns></returns>
         public LevelStackedObjsBase GetStackObjBase(string stack_id)
         {
             LevelStackedObjsBase retVal = null;
@@ -58,6 +82,11 @@ namespace LevelEditor
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="matId"></param>
+        /// <returns></returns>
         public Material GetMaterial(int matId)
         {
             Material retVal = null;
@@ -75,6 +104,12 @@ namespace LevelEditor
             return retVal;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mat"></param>
+        /// <returns></returns>
         public int GetMaterialId(Material mat)
         {
             int id = -1;
@@ -93,6 +128,10 @@ namespace LevelEditor
 
     }
 
+
+    /// <summary>
+    /// 
+    /// </summary>
     [System.Serializable]
     public class LevelGameObjectBase
     {
@@ -100,6 +139,10 @@ namespace LevelEditor
         public GameObject objPrefab;
     }
 
+
+    /// <summary>
+    /// 
+    /// </summary>
     [System.Serializable]
     public class LevelStackedObjsBase
     {
