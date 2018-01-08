@@ -2,10 +2,8 @@
 using UnityEditor;
 using UnityEngine;
 
-//Class for camera following
-
 /// <summary>
-/// 
+/// Class for camera follow behavoir, such as zooming in and out, following the mouse, and changing what object the camera is focused on.
 /// </summary>
 public class CameraFollow : MonoBehaviour {
 
@@ -26,7 +24,7 @@ public class CameraFollow : MonoBehaviour {
     public bool followMouse { get; set; }
 
     /// <summary>
-    /// 
+    /// Sets the current zoom level to whatever the size of the ortho camera is, and the mouse is not following anything by default. 
     /// </summary>
     void Start()
     {
@@ -35,20 +33,20 @@ public class CameraFollow : MonoBehaviour {
         
     }
 
-    //Target's position is updated in 'Updated' func, updating that and camera position will cause jitteriness
 
     /// <summary>
-    /// 
+    /// Update the camera's position . This func is run right after update.
+    /// Target's position is updated in 'Updated' func, updating that and camera position will cause jitteriness
     /// </summary>
-    void LateUpdate() //run right after update
+    void LateUpdate() 
     {
         if (!followMouse)
         {
-            transform.position = target.position + offset; //update the camera's position 
+            transform.position = target.position + offset; 
         }
     }
     /// <summary>
-    /// 
+    /// Zoom the camera in, change target, and/or follow the mouse if needed.
     /// </summary>
     void Update()
     {
@@ -63,14 +61,10 @@ public class CameraFollow : MonoBehaviour {
         FollowMouse();
     }
 
-    //Maybe I don't need a camera follow really?? RAther I don't need an offset!
-
-    //Mouse scroll delta uses positive Y for scrolling up and negative Y for scrolling down
-    //Size of camera determines how zoomed in it is, the smaller the size the more zoomed in it is
-    //Now to get it to zoom in and out
 
     /// <summary>
-    /// 
+    /// Function for zooming in the camera. Size of camera determines how zoomed in it is, 
+    /// the smaller the size the more zoomed in, the bigger the more zoomed out.
     /// </summary>
     void Zoom()
     {
@@ -93,7 +87,7 @@ public class CameraFollow : MonoBehaviour {
 
 
     /// <summary>
-    /// 
+    /// Helper function for zooming in. Mouse scroll delta uses positive Y for scrolling up and negative Y for scrolling down.
     /// </summary>
     void ZoomIn()
     {
@@ -103,17 +97,15 @@ public class CameraFollow : MonoBehaviour {
 
 
     /// <summary>
-    /// 
+    /// Helper function for zooming out. Mouse scroll delta uses positive Y for scrolling up and negative Y for scrolling down.
     /// </summary>
     void ZoomOut()
     {
         Camera.main.orthographicSize += zoomScale;
     }
 
-    //When you click on an item/char it will be deselcted, and select what you just clicked on. The camera will also now follow what you just clicked on
-
     /// <summary>
-    /// 
+    /// Function for changing the target of the camera, the camera will now follow whatever was last clicked.
     /// </summary>
     void ChangeTarget()
     {
@@ -147,10 +139,8 @@ public class CameraFollow : MonoBehaviour {
 
     }
 
-    //the camera will follow the mouse if it's in any of the corners/edges of the game screen, even if something is selected (it will remain selected)
-
     /// <summary>
-    /// 
+    /// Function for the camera to follow the mouse if it's in any of the corners or edges of the screen, even if something is selected (it will remain selected).
     /// </summary>
     void FollowMouse()
     {

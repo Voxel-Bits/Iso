@@ -50,7 +50,7 @@ namespace LevelEditor
 
 
         /// <summary>
-        /// 
+        /// Gets the instances of all the needed singletons: GridBase, Level Manager, Interface Manager.
         /// </summary>
         void Start()
         {
@@ -63,7 +63,7 @@ namespace LevelEditor
 
 
         /// <summary>
-        /// 
+        /// Updates the frame with whatever you're doing: Placing an object, painting a tile, deleting an object, creating a wall, etc.
         /// </summary>
         void Update()
         {
@@ -78,7 +78,7 @@ namespace LevelEditor
 
         
         /// <summary>
-        /// 
+        /// This function gets the world coordinates of the mouse when it's clicked.
         /// </summary>
         void UpdateMousePosition()
         {
@@ -96,7 +96,8 @@ namespace LevelEditor
         //IF the mouse button is clicked place the objects
 
         /// <summary>
-        /// 
+        /// This function places the object following the mouse into the node the mouse is on. Replaces the old object if
+        /// one already exists.
         /// </summary>
         void PlaceObject()
         {
@@ -154,7 +155,8 @@ namespace LevelEditor
 
 
         /// <summary>
-        /// 
+        /// Sets the mode to place and object. The object is predetermined by the button that was cliked.
+        /// The object to be placed will now be following the mouse cursor.
         /// </summary>
         /// <param name="objId"></param>
         public void PassGameObjectToPlace(string objId)
@@ -173,7 +175,7 @@ namespace LevelEditor
 
 
         /// <summary>
-        /// 
+        /// Deletes the object clicked by the mouse if there is an object on that node.
         /// </summary>
         void DeleteObjs()
         {
@@ -202,7 +204,7 @@ namespace LevelEditor
 
 
         /// <summary>
-        /// 
+        /// Sets the mode to delete objects.
         /// </summary>
         public void DeleteObj()
         {
@@ -381,7 +383,7 @@ namespace LevelEditor
 
 
         /// <summary>
-        /// 
+        /// Set the mode to delete a stacked object.
         /// </summary>
         public void DeleteStackObj()
         {
@@ -391,7 +393,7 @@ namespace LevelEditor
 
 
         /// <summary>
-        /// 
+        /// Delete the stack object the mouse is currently over.
         /// </summary>
         void DeleteStackObjs()
         {
@@ -864,7 +866,7 @@ namespace LevelEditor
         
 
         /// <summary>
-        /// 
+        /// Set the mode to delete walls.
         /// </summary>
         public void DeleteWall()
         {
@@ -874,7 +876,7 @@ namespace LevelEditor
 
 
         /// <summary>
-        /// 
+        /// This function removes the wall that's assigned to the node the mouse was clicked on.
         /// </summary>
         void DeleteWallsActual()
         {
@@ -902,7 +904,7 @@ namespace LevelEditor
 
 
         /// <summary>
-        /// 
+        /// Sets all modes to false. This is so you don't have to manually manage which button has been pressed.
         /// </summary>
         void CloseAll()
         {

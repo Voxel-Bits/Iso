@@ -4,10 +4,9 @@ using UnityEngine;
 
 namespace LevelEditor
 {
-    //Calls all the lists of resources
-
+    
     /// <summary>
-    /// 
+    /// Manages the resources of game level objects, the stacking game level objects, level materials, and wall prefabs.
     /// </summary>
     public class ResourcesManager : MonoBehaviour
     {
@@ -20,7 +19,7 @@ namespace LevelEditor
 
 
         /// <summary>
-        /// 
+        /// Initialize the Resources Manager singleton.
         /// </summary>
         void Awake()
         {
@@ -29,7 +28,7 @@ namespace LevelEditor
 
 
         /// <summary>
-        /// 
+        /// Returns the instance of the Resources Manager
         /// </summary>
         /// <returns></returns>
         public static ResourcesManager GetInstance()
@@ -39,7 +38,8 @@ namespace LevelEditor
 
 
         /// <summary>
-        /// check if the lvl game obj base is already in the level
+        /// Returns the LevelGameObjectBase from the given object ID. 
+        /// Used to check if the lvl game obj base is already in the level.
         /// </summary>
         /// <param name="objId"></param>
         /// <returns></returns>
@@ -62,7 +62,8 @@ namespace LevelEditor
         
 
         /// <summary>
-        /// check if the level stacked obj base is already in the level
+        /// Returns the LevelStackedObjsBase using the given stack ID. 
+        /// Used to check if the level stacked obj base is already in the level.
         /// </summary>
         /// <param name="stack_id"></param>
         /// <returns></returns>
@@ -83,7 +84,7 @@ namespace LevelEditor
 
 
         /// <summary>
-        /// 
+        /// Retrn the material with the corresponding ID.
         /// </summary>
         /// <param name="matId"></param>
         /// <returns></returns>
@@ -106,7 +107,7 @@ namespace LevelEditor
 
 
         /// <summary>
-        /// 
+        /// Return the material ID with the given material.
         /// </summary>
         /// <param name="mat"></param>
         /// <returns></returns>
@@ -130,7 +131,7 @@ namespace LevelEditor
 
 
     /// <summary>
-    /// 
+    /// Serializable LevelGameObjectBase class.
     /// </summary>
     [System.Serializable]
     public class LevelGameObjectBase
@@ -141,7 +142,7 @@ namespace LevelEditor
 
 
     /// <summary>
-    /// 
+    /// Serializable LevelStackedObjsBase class.
     /// </summary>
     [System.Serializable]
     public class LevelStackedObjsBase

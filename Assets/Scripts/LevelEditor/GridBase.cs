@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 /// <summary>
-/// 
+/// Creates a grid for the game using a 2D array.
 /// </summary>
 public class GridBase : MonoBehaviour
 {
@@ -20,7 +20,7 @@ public class GridBase : MonoBehaviour
     private static GridBase instance = null; //there shall only be 1 instance of the gridbase
 
     /// <summary>
-    /// 
+    /// Singleton pattern. Have a static public function for returning the singleton instance.
     /// </summary>
     /// <returns></returns>
     public static GridBase GetInstance() //singleton
@@ -30,7 +30,7 @@ public class GridBase : MonoBehaviour
 
 
     /// <summary>
-    /// 
+    /// Create the singleton instance, grid, and collision box.
     /// </summary>
     void Awake()
     {
@@ -42,7 +42,8 @@ public class GridBase : MonoBehaviour
 
 
     /// <summary>
-    /// 
+    /// Create a grid using a nested loop. Each node in the grid is a generic game obect with world coordinates, 
+    /// mesh renderer of a quad, and if it's walkable.
     /// </summary>
     void CreateGrid()
     {
@@ -73,10 +74,9 @@ public class GridBase : MonoBehaviour
         }
     }
 
-    //Our prefabs for each node will not contain colliders because we'll have x*z amount of colliders
-
+    
     /// <summary>
-    /// 
+    /// In order to avoid having x*z amount of colliders, we create a huge box collider the side of x*z
     /// </summary>
     void CreateMouseCollision()
     {
@@ -86,10 +86,9 @@ public class GridBase : MonoBehaviour
         go.transform.position = new Vector3((sizeX * offset) / 2 - 1, 0, (sizeZ * offset) / 2 - 1); //the ones are magic numbers and should be variables. they're used to make the position in the middle of the quad
     }
 
-    //raycast hit into node position
-
+    
     /// <summary>
-    /// 
+    /// Function returns the appropriate node from the given worldPosition. Essentially like raycasting.
     /// </summary>
     /// <param name="worldPosition"></param>
     /// <returns></returns>
