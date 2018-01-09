@@ -311,7 +311,7 @@ namespace LevelEditor
         #region Stacked Objects
 
         /// <summary>
-        /// 
+        /// Function selects stacked object from the given object ID, and the mouse will have it selected. 
         /// </summary>
         /// <param name="objId"></param>
         public void PassStackedObjectToPlace(string objId)
@@ -331,7 +331,7 @@ namespace LevelEditor
 
 
         /// <summary>
-        /// 
+        /// Place the stacked object on the node the user clicked on, and add it to the stacked obj list on that node.
         /// </summary>
         void PlaceStackedObj()
         {

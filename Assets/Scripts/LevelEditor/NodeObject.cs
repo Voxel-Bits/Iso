@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-//this class ties the node and nodeObjectSaveable objects together
 
 /// <summary>
-/// 
+/// This class ties the node and nodeObjectSaveable objects together.
 /// </summary>
 public class NodeObject : MonoBehaviour {
 
@@ -30,7 +29,7 @@ public class NodeObject : MonoBehaviour {
 
 
     /// <summary>
-    /// 
+    /// Changes the material of the node.
     /// </summary>
     /// <param name="curNode"></param>
     void ChangeMaterial(Node curNode)
@@ -41,7 +40,7 @@ public class NodeObject : MonoBehaviour {
 
 
     /// <summary>
-    /// 
+    /// Get saveable version of the Node object class.
     /// </summary>
     /// <returns></returns>
     public NodeObjectSaveable GetSaveable()
@@ -58,7 +57,7 @@ public class NodeObject : MonoBehaviour {
 }
 
 /// <summary>
-/// 
+/// The serializable Node object class.
 /// </summary>
 [System.Serializable]
 public class NodeObjectSaveable

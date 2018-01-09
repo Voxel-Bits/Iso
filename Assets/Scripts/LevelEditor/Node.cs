@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//Grid is made up of Nodes that tell you its position, the tile, if AI can talk on it, the objects currently on it
 //From Sharp Accent tutorial
 
 /// <summary>
-/// 
+/// Class that contains the Node class. Node is the building block for the grid.
+/// Grid is made up of Nodes that tell you its position, the tile, if AI can talk on it, the objects currently on it.
 /// </summary>
 public class Node {
 

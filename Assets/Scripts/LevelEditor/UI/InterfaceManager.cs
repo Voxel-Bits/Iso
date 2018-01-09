@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 /// <summary>
-/// 
+/// This class manages the inteface. Mainly to check if the mouse is over any UI elements.
 /// </summary>
 public class InterfaceManager : MonoBehaviour {
 
@@ -14,7 +14,7 @@ public class InterfaceManager : MonoBehaviour {
 
 
     /// <summary>
-    /// 
+    /// Initializes the singleton instance of the Interface manager.
     /// </summary>
     void Awake()
     {
@@ -23,7 +23,7 @@ public class InterfaceManager : MonoBehaviour {
 
 
     /// <summary>
-    /// 
+    /// Returns the singleton instance of the Interface manager.
     /// </summary>
     /// <returns></returns>
     public static InterfaceManager GetInstance()

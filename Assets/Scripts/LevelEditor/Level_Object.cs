@@ -6,7 +6,8 @@ namespace LevelEditor
 {
 
     /// <summary>
-    /// 
+    /// This is a class for level objects (not walls), contains world position, ID, 
+    /// rotation, reference to its model.
     /// </summary>
     public class Level_Object : MonoBehaviour
     {
@@ -40,7 +41,7 @@ namespace LevelEditor
 
 
         /// <summary>
-        /// 
+        /// Changes the rotation of the object.
         /// </summary>
         public void ChangeRotation()
         {
@@ -74,7 +75,7 @@ namespace LevelEditor
     }
 
         /// <summary>
-        /// 
+        /// Serializable SaveableLevelObject class.
         /// </summary>
         [System.Serializable]
         public class SaveableLevelObject
