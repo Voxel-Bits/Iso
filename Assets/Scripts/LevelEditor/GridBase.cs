@@ -13,7 +13,7 @@ public class GridBase : MonoBehaviour
 
     public int sizeX;
     public int sizeZ;
-    public int offset = 1; //we want to be able to see the nodes/quads invidiually 
+    public int offset = 2; //we want to be able to see the nodes/quads invidiually 
 
     public Node[,] grid;
 
