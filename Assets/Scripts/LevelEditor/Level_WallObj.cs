@@ -103,7 +103,7 @@ namespace LevelEditor
 
 
     /// <summary>
-    /// 
+    /// Serializable class, which is the direction of the wall and the states of the corners.
     /// </summary>
     [Serializable]
     public class WallObjectSaveableProperties

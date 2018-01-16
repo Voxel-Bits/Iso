@@ -52,7 +52,7 @@ namespace LevelEditor
 
 
         /// <summary>
-        /// 
+        /// Convert the monobehavior level object class into a saveable level object.
         /// </summary>
         /// <returns></returns>
         public SaveableLevelObject GetSaveableObject()

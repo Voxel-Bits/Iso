@@ -13,7 +13,7 @@ public class NodeObject : MonoBehaviour {
 
 
     /// <summary>
-    /// 
+    /// Used for loading the node object onto the level.
     /// </summary>
     /// <param name="curNode"></param>
     /// <param name="saveable"></param>
