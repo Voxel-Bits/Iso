@@ -817,6 +817,8 @@ namespace LevelEditor
             if(getNode.wallObj == null)
             {
                 GameObject actualObjPlaced = Instantiate(wallPrefab, wallPosition, Quaternion.identity) as GameObject;
+                actualObjPlaced.transform.parent = manager.wallHolder.transform;
+
                 Level_Object placedObjProperties = actualObjPlaced.GetComponent<Level_Object>();
                 Level_WallObj placedWallProperties = actualObjPlaced.GetComponent<Level_WallObj>();
 

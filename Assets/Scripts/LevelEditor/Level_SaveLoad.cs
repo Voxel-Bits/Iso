@@ -11,6 +11,7 @@ using UnityEngine;
 /// Class to save and load basic objects. We don't want to save anything from MonoBehavior, which is why we created separate classes.
 /// </summary>
 public class Level_SaveLoad : MonoBehaviour {
+    public List<String> availableLevels = new List<string>();
 
     private List<SaveableLevelObject> saveLevelObjects_List = new List<SaveableLevelObject>();
     private List<SaveableLevelObject> saveStackableLevelObjects_List = new List<SaveableLevelObject>();
@@ -18,23 +19,34 @@ public class Level_SaveLoad : MonoBehaviour {
     private List<WallObjectSaveable> saveWallsList = new List<WallObjectSaveable>();
 
     public static string saveFolderName = "LevelObjects";
-    
+
+    LevelManager lvlManager;
+
+     /// <summary>
+     /// Get singleton instance of the level manager.
+     /// </summary>
+     void Start()
+    {
+        lvlManager = LevelManager.GetInstance();
+
+    }
 
     /// <summary>
     /// Function to assign the "Save Level" button. It saves the objects in the level.
     /// </summary>
-    public void SaveLevelButton()
+    public void SaveLevelButton(string levelName)
     {
-        SaveLevel("testLevel");
+        SaveLevel(levelName);
+        InterfaceManager.GetInstance().ReloadFiles();
     }
 
 
     /// <summary>
     /// Function to assign the "Load Level" button. It loads the objects in the level.
     /// </summary>
-    public void LoadLevelButton()
+    public void LoadLevelButton(string levelName)
     {
-        LoadLevel("testLevel");
+        LoadLevel(levelName);
     }
 
 
@@ -43,16 +55,24 @@ public class Level_SaveLoad : MonoBehaviour {
     /// </summary>
     /// <param name="LevelName"></param>
     /// <returns></returns>
-    static string SaveLocation(string LevelName)
+    static string SaveLocation(string LevelName, bool save = false)
     {
-        string saveLocation = Application.persistentDataPath + "/" + saveFolderName + "/";
+        string saveLocation = Application.streamingAssetsPath + "/Levels/";
 
         if(!Directory.Exists(saveLocation))
         {
             Directory.CreateDirectory(saveLocation);
         }
+        if (save)
+        {
+            return saveLocation + "lvl_" + LevelName;
 
-        return saveLocation + LevelName;
+        }
+        else
+        {
+
+            return saveLocation + LevelName;
+        }
     }
 
     /// <summary>
@@ -127,9 +147,11 @@ public class Level_SaveLoad : MonoBehaviour {
         bool retVal = true;
 
         string saveFile = SaveLocation(saveName);
+        Debug.Log(saveFile);
 
         if(!File.Exists(saveFile))
         {
+            Debug.Log("can't find level");
             retVal = false;
         }
         else
@@ -147,11 +169,13 @@ public class Level_SaveLoad : MonoBehaviour {
     }
 
     /// <summary>
-    /// 
+    /// Go through all of the saveable level objects and assign them to the node that has the same position as the game object in space.
     /// </summary>
     /// <param name="levelSaveable"></param>
     void LoadLevelActual(LevelSaveable levelSaveable)
     {
+        LevelManager.GetInstance().ClearLevel();
+
         #region Create Level Objects
         for(int i = 0; i < levelSaveable.saveLevelObjects_List.Count; i++)
         {
@@ -172,6 +196,9 @@ public class Level_SaveLoad : MonoBehaviour {
             nodeToPlace.placedObj.gridPosX = nodeToPlace.nodePosX;
             nodeToPlace.placedObj.gridPosZ = nodeToPlace.nodePosZ;
             nodeToPlace.placedObj.worldRotation = nodeToPlace.placedObj.transform.localEulerAngles;
+
+            lvlManager.inSceneGameObjects.Add(go);
+            go.transform.parent = lvlManager.objHolder.transform;
         }
         #endregion
 
@@ -195,6 +222,9 @@ public class Level_SaveLoad : MonoBehaviour {
             stack_obj.gridPosZ = nodeToPlace.nodePosZ;
 
             nodeToPlace.stackedObjs.Add(stack_obj);
+
+            lvlManager.inSceneStackObjects.Add(go);
+            go.transform.parent = lvlManager.objHolder.transform;
         }
 
         #endregion
@@ -231,6 +261,9 @@ public class Level_SaveLoad : MonoBehaviour {
                 s_wall.wallObject.corner_b,
                 s_wall.wallObject.corner_c);
 
+            lvlManager.inSceneWalls.Add(go);
+            go.transform.parent = lvlManager.wallHolder.transform;
+
         }
         #endregion
     }
@@ -258,4 +291,50 @@ public class Level_SaveLoad : MonoBehaviour {
         public WallObjectSaveableProperties wallObject;
     }
 
+    /// <summary>
+    /// This function ensures that you're only loading level files, not .meta files.
+    /// </summary>
+    public void LoadAllFileLevels()
+    {
+        DirectoryInfo dirInfo = new DirectoryInfo(Application.streamingAssetsPath + "/Levels");
+        FileInfo[] fileInfo = dirInfo.GetFiles();
+
+        foreach(FileInfo f in fileInfo)
+        {
+            string[] readName = f.Name.Split(new string[] { "_" }, StringSplitOptions.RemoveEmptyEntries);
+
+            if(readName.Length == 2)
+            {
+                if(string.Equals("lvl", readName[0]))
+                {
+                    string[] noMeta = readName[1].Split(new string[] { "." }, StringSplitOptions.RemoveEmptyEntries);
+
+                    if(noMeta.Length == 1)
+                    {
+                        availableLevels.Add(f.Name);
+                    }
+                }
+            }
+        }
+    }
+
+    public static Level_SaveLoad instance;
+
+    /// <summary>
+    /// Get the singleton instance of the Level_SaveLoad object.
+    /// </summary>
+    /// <returns></returns>
+    public static Level_SaveLoad GetInstance()
+    {
+        return instance;
+    }
+
+    /// <summary>
+    /// Set the singleton instance and load all file levels.
+    /// </summary>
+    void Awake()
+    {
+        instance = this;
+        LoadAllFileLevels();
+    }
 }

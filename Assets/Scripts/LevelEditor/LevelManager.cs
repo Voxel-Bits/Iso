@@ -14,6 +14,11 @@ public class LevelManager : MonoBehaviour {
     public List<GameObject> inSceneWalls = new List<GameObject>();
     public List<GameObject> inSceneStackObjects = new List<GameObject>();
 
+    [HideInInspector]
+    public GameObject wallHolder;
+    [HideInInspector]
+    public GameObject objHolder;
+
     private static LevelManager instance = null;
 
     /// <summary>
@@ -38,7 +43,45 @@ public class LevelManager : MonoBehaviour {
     /// </summary>
     void Start()
     {
+        wallHolder = new GameObject();
+        wallHolder.name = "Wall Holder";
+        objHolder = new GameObject();
+        objHolder.name = "Obj Holder";
+
         gridBase = GridBase.GetInstance();
 
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    void InitLevelObjects()
+    {
+
+    }
+
+    /// <summary>
+    /// Destroy the objects in the level to make way for the level you're going to load.
+    /// </summary>
+    public void ClearLevel()
+    {
+        foreach(GameObject g in inSceneGameObjects)
+        {
+            Destroy(g);
+        }
+
+        foreach(GameObject g in inSceneStackObjects)
+        {
+            Destroy(g);
+        }
+
+        foreach(GameObject g in inSceneWalls)
+        {
+            Destroy(g);
+        }
+
+        inSceneWalls.Clear();
+        inSceneStackObjects.Clear();
+        inSceneGameObjects.Clear();
     }
 }
