@@ -128,6 +128,7 @@ public class InterfaceManager : MonoBehaviour {
     void Awake()
     {
         instance = this;
+
     }
 
 

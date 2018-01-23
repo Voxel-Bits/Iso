@@ -126,7 +126,7 @@ public class Level_SaveLoad : MonoBehaviour {
         levelSave.saveNodeObjectsList = saveNodeObjectsList;
         levelSave.saveWallsList = saveWallsList;
 
-        string saveLocation = SaveLocation(saveName);
+        string saveLocation = SaveLocation(saveName,true); 
 
         IFormatter formatter = new BinaryFormatter();
         Stream stream = new FileStream(saveLocation, FileMode.Create, FileAccess.Write, FileShare.None);
