@@ -10,7 +10,8 @@ using UnityEngine;
 /// <summary>
 /// Class to save and load basic objects. We don't want to save anything from MonoBehavior, which is why we created separate classes.
 /// </summary>
-public class Level_SaveLoad : MonoBehaviour {
+public class Level_SaveLoad : MonoBehaviour
+{
     public List<String> availableLevels = new List<string>();
 
     private List<SaveableLevelObject> saveLevelObjects_List = new List<SaveableLevelObject>();

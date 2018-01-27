@@ -13,8 +13,14 @@ public class InterfaceManager : MonoBehaviour {
 
     public bool mouseOverUIElement;
 
+    public bool levelEditorMode;
+
     public Transform loadLevelGrid;
     public Transform saveLevelDialog;
+    public Transform levelEditorCanvas;
+    public Transform enableLevelEditorButton;
+    public Transform disableLevelEditorButton;
+
     public GameObject[] otherUI;
 
     public GameObject loadLevelUIbuttonPrefab;
@@ -33,6 +39,14 @@ public class InterfaceManager : MonoBehaviour {
         sl = Level_SaveLoad.GetInstance();
 
         CreateUIButtonsForAvailableLevels();
+
+        if(!levelEditorMode)
+        {
+            levelEditorCanvas.gameObject.SetActive(false);
+        }else
+        {
+            levelEditorCanvas.gameObject.SetActive(true);
+        }
 
     }
 
@@ -56,7 +70,18 @@ public class InterfaceManager : MonoBehaviour {
     /// </summary>
     void Update()
     {
-        mouseOverUIElement = EventSystem.current.IsPointerOverGameObject();
+        if (levelEditorMode)
+        {
+            levelEditorCanvas.gameObject.SetActive(true);
+            disableLevelEditorButton.gameObject.SetActive(true);
+            enableLevelEditorButton.gameObject.SetActive(false);
+            mouseOverUIElement = EventSystem.current.IsPointerOverGameObject();
+        }else
+        {
+            levelEditorCanvas.gameObject.SetActive(false);
+            enableLevelEditorButton.gameObject.SetActive(true);
+            disableLevelEditorButton.gameObject.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -165,6 +190,24 @@ public class InterfaceManager : MonoBehaviour {
 
         sl.LoadAllFileLevels();
         CreateUIButtonsForAvailableLevels();
+    }
+
+
+    /// <summary>
+    /// From non-level editor mode, click button to enter level editor.
+    /// </summary>
+    public void EnterLevelEditorModeButton()
+    {
+        levelEditorMode = true;
+    }
+
+
+    /// <summary>
+    /// From level editor mode, click button to exit lvl editor.
+    /// </summary>
+    public void ExitLevelEditorModeButton()
+    {
+        levelEditorMode = false;
     }
 
     /// <summary>
