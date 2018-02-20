@@ -3995,8 +3995,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 595.5, y: 175.4}
-  m_SizeDelta: {x: 400.8, y: 34.6}
+  m_AnchoredPosition: {x: 568.6, y: 173.44997}
+  m_SizeDelta: {x: 400.8, y: 38.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1283878220
 MonoBehaviour:
@@ -5652,8 +5652,8 @@ MonoBehaviour:
   loadLevelGrid: {fileID: 608520417}
   saveLevelDialog: {fileID: 200090606}
   levelEditorCanvas: {fileID: 1995739230}
-  enableLevelEditorButton: {fileID: 0}
-  disableLevelEditorButton: {fileID: 0}
+  enableLevelEditorButton: {fileID: 876839296}
+  disableLevelEditorButton: {fileID: 1366406752}
   otherUI: []
   loadLevelUIbuttonPrefab: {fileID: 1512038023354902, guid: b7b06e127e150624e96f55e8bde46ae4,
     type: 2}
