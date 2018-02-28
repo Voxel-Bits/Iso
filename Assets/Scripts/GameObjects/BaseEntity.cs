@@ -1,9 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LevelEditor;
 
 namespace Iso
 {
+
+    /// <summary>
+    /// In-Game locations.
+    /// </summary>
     enum LocationType: long
     {
         Bathroom,
@@ -24,7 +29,7 @@ namespace Iso
     /// -spawnable
     /// -unspawnable
     /// </summary>
-    public interface IBaseEntity
+    public abstract class BaseEntity : Level_Object
     {
 
 
