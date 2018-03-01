@@ -6,7 +6,7 @@ using LevelEditor;
 
 namespace Iso
 {
-    enum StatusType: long
+    public enum StatusType: long
     {
         BrokenDown, Open, Close, InUse
     }
@@ -34,6 +34,7 @@ namespace Iso
         public int WaitTime;
         public int Popularity;
         public int Rating;
+        StatusType Status;
 
         // Use this for initialization
         void Start() {

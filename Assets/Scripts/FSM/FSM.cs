@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
+
 namespace Iso
 {
 
@@ -14,7 +15,7 @@ namespace Iso
     /// that reduces conditional checks for each state.
     /// </summary>
     /// <typeparam name="entity_type"></typeparam>
-    public class FSM<entity_type> : MonoBehaviour
+    public class FSM<entity_type> 
     {
 
         public entity_type Owner; //this is probably whatever entity this script is attached to.
@@ -28,6 +29,7 @@ namespace Iso
         // Use this for initialization
         void Start()
         {
+            Debug.Assert(Owner != null, "Owner must not be null.");
             CurrentState = null;
             PreviousState = null;
             GlobalState = null;
@@ -134,7 +136,7 @@ namespace Iso
         /// <returns></returns>
         public bool IsInState(State<entity_type> st)
         {
-            return CurrentState.isEqual(st);
+            return CurrentState.Equals(st);
         }
 
     }

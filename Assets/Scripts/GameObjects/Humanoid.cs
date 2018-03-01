@@ -14,22 +14,32 @@ namespace Iso
     /// </summary>
     public class Humanoid : BaseEntity
     {
-        LocationType m_location;
+        public LocationType m_location;
+
+        FSM<Humanoid> StateMachine;
 
         public NavMeshAgent agent;
 
         public Transform[] patrolPoints; //This will probably chaannggee
 
+
+
         // Use this for initialization
         void Start()
         {
-
+            StateMachine = new FSM<Humanoid>();
+            //StateMachine.SetCurrentState
         }
 
         // Update is called once per frame
         void Update()
         {
+            StateMachine.FSMUpdate();
+        }
 
+        FSM<Humanoid> GetFSM()
+        {
+            return StateMachine;
         }
     }
 }

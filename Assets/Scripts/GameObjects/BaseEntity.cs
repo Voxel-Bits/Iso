@@ -9,7 +9,7 @@ namespace Iso
     /// <summary>
     /// In-Game locations.
     /// </summary>
-    enum LocationType: long
+    public enum LocationType: long
     {
         Bathroom,
         FoodCourt,
