@@ -11,9 +11,7 @@ namespace Iso
     public class PatrolPoints : MonoBehaviour
     {
 
-        Transform[] ptrlPts;
         GridBase gridBase;
-
 
         /// <summary>
         /// When floor is empty, start off with 4 points on each respective corner of the floor.
@@ -23,11 +21,6 @@ namespace Iso
             gridBase = GridBase.GetInstance();
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
 
         /// <summary>
         /// If an object is added on the node the point is in, search the nearby nodes to see if one is available to reassign patrol point to
@@ -35,7 +28,7 @@ namespace Iso
         /// --> If there is are still multiple of those, choose a random one
         /// </summary>
         /// <param name="patrolPoint"></param>
-        void UpdatePatrolPoint(Transform patrolPoint)
+        void UpdatePatrolPoint(Humanoid h)
         {
 
         }

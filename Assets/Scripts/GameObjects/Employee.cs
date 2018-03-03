@@ -11,6 +11,7 @@ namespace Iso
     public class Employee : Humanoid
     {
         public float Salary;
+        public static Transform[] PatrolPoints;
 
         // Use this for initialization
         void Start()
@@ -22,6 +23,33 @@ namespace Iso
         void Update()
         {
 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="newSalary"></param>
+        public void SetSalary(float newSalary)
+        {
+            Salary = newSalary;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="amount"></param>
+        public void IncreaseSalary(float amount)
+        {
+            Salary += amount;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="amount"></param>
+        public void DecreaseSalary(float amount)
+        {
+            Salary -= amount;
         }
     }
 }
