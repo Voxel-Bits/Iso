@@ -31,7 +31,7 @@ namespace Iso
     /// </summary>
     public abstract class BaseEntity : Level_Object
     {
-
+        public abstract bool HandleMessage(Telegram msg);
 
     }
 }

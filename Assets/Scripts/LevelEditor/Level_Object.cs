@@ -25,8 +25,8 @@ namespace LevelEditor
 
         public float rotateDegrees = 90; //how much do you want the model to rotate by when placing in the world
 
-        int m_ID; //will be used for non-resource manager stuff, it's better to have an int than string
-        static int m_iNextValidID; //Next valid ID. value is updated every time class is instantiated
+        public int m_ID; //will be used for non-resource manager stuff, it's better to have an int than string
+        public static int m_iNextValidID; //Next valid ID. value is updated every time class is instantiated
 
         /// <summary>
         /// 

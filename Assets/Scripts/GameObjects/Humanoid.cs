@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using LevelEditor;
 using UnityEngine.AI;
+using System;
 
 namespace Iso
 {
@@ -42,9 +43,23 @@ namespace Iso
             return StateMachine;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="newLocation"></param>
         void SetCurrentLocation(LocationType newLocation)
         {
             CurrentLocation = newLocation;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public override bool HandleMessage(Telegram msg)
+        {
+            return StateMachine.HandleMessage(msg); 
         }
     }
 }

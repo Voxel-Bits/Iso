@@ -46,6 +46,17 @@ namespace Iso
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="telegram"></param>
+        /// <returns></returns>
+        public override bool OnMessaage(Humanoid entity, Telegram telegram)
+        {
+            throw new NotImplementedException();
+        }
+
         // Use this for initialization
         void Awake()
         {

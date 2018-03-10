@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using LevelEditor;
+using System;
 
 namespace Iso
 {
@@ -39,16 +40,6 @@ namespace Iso
         public int CurrNumOfHumanoids;
 
         StatusType CurrentStatus;
-
-        // Use this for initialization
-        void Start() {
-
-        }
-
-        // Update is called once per frame
-        void Update() {
-
-        }
 
         /// <summary>
         /// Set the display name of the interactable object.
@@ -196,6 +187,16 @@ namespace Iso
         public void SetCurrentStatus(StatusType newStatus)
         {
             CurrentStatus = newStatus;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public override bool HandleMessage(Telegram msg)
+        {
+            throw new NotImplementedException();
         }
     }
 }

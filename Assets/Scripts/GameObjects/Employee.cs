@@ -13,18 +13,6 @@ namespace Iso
         public float Salary;
         public static Transform[] PatrolPoints;
 
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         /// <summary>
         /// 
         /// </summary>

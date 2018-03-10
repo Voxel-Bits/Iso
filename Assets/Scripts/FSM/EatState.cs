@@ -7,16 +7,16 @@ namespace Iso
 {
     public class EatState :  State<Customer>
     {
-       
+        static EatState Instance = null;
 
-        // Use this for initialization
-        void Start() {
-
+        public void Awake()
+        {
+            Instance = this;
         }
 
-        // Update is called once per frame
-        void Update() {
-
+        public static EatState GetInstance()
+        {
+            return Instance;
         }
 
         /// <summary>
@@ -43,6 +43,17 @@ namespace Iso
         /// </summary>
         /// <param name="entity"></param>
         public override void Exit(Customer entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="telegram"></param>
+        /// <returns></returns>
+        public override bool OnMessaage(Customer entity, Telegram telegram)
         {
             throw new NotImplementedException();
         }

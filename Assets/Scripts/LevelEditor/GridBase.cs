@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 /// <summary>
@@ -10,6 +11,7 @@ public class GridBase : MonoBehaviour
 {
 
     public GameObject nodePrefab;
+    //public NavMeshS
 
     public int sizeX;
     public int sizeZ;

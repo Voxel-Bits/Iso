@@ -139,5 +139,25 @@ namespace Iso
             return CurrentState.Equals(st);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        public bool HandleMessage(Telegram msg)
+        {
+            if(CurrentState && CurrentState.OnMessaage(Owner, msg))
+            {
+                return true;
+            }
+
+            if(GlobalState && GlobalState.OnMessaage(Owner, msg))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }

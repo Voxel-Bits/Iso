@@ -30,5 +30,13 @@ namespace Iso
         /// <param name="entity"></param>
         public abstract void Exit(entity_type entity);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="telegram"></param>
+        /// <returns></returns>
+        public abstract bool OnMessaage(entity_type entity, Telegram telegram);
+
     }
 }
