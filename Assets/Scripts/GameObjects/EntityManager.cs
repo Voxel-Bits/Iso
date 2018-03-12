@@ -12,6 +12,7 @@ namespace Iso
 
         SortedDictionary<int, BaseEntity> EntityMap;
 
+
         static EntityManager Instance = null;
 
         /// <summary>

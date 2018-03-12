@@ -146,12 +146,12 @@ namespace Iso
         /// <returns></returns>
         public bool HandleMessage(Telegram msg)
         {
-            if(CurrentState && CurrentState.OnMessaage(Owner, msg))
+            if(CurrentState && CurrentState.OnMessage(Owner, msg))
             {
                 return true;
             }
 
-            if(GlobalState && GlobalState.OnMessaage(Owner, msg))
+            if(GlobalState && GlobalState.OnMessage(Owner, msg))
             {
                 return true;
             }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -77,15 +77,18 @@ LightmapSettings:
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
-    m_PVRFiltering: 0
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
     m_PVRFilteringMode: 1
     m_PVRCulling: 1
     m_PVRFilteringGaussRadiusDirect: 1
     m_PVRFilteringGaussRadiusIndirect: 5
     m_PVRFilteringGaussRadiusAO: 2
-    m_PVRFilteringAtrousColorSigma: 1
-    m_PVRFilteringAtrousNormalSigma: 1
-    m_PVRFilteringAtrousPositionSigma: 1
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -107,6 +110,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    debug:
+      m_Flags: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1 &241683
 GameObject:
@@ -2225,7 +2230,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4713206084170014, guid: 7c4fc88662b72744789abbf641aee509, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.78
+      value: 3.14
       objectReference: {fileID: 0}
     - target: {fileID: 4713206084170014, guid: 7c4fc88662b72744789abbf641aee509, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2254,6 +2259,44 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c4fc88662b72744789abbf641aee509, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &724942747 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1299816996655080, guid: 7c4fc88662b72744789abbf641aee509,
+    type: 2}
+  m_PrefabInternal: {fileID: 724942746}
+--- !u!114 &724942748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 724942747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879b0adb593288440a405f6e1896502d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obj_Id: charbox
+  gridPosX: 0
+  gridPosY: 0
+  gridPosZ: 0
+  modelVisualization: {fileID: 724942747}
+  worldPositionOffset: {x: 0, y: 0, z: 0}
+  worldRotation: {x: 0, y: 0, z: 0}
+  isStackableObj: 0
+  isWallObject: 0
+  rotateDegrees: 90
+  m_ID: 0
+  agent: {fileID: 0}
+  DisplayName: 
+  Money: 0
+  BathroomNeed: 0
+  HungerNeed: 0
+  FunMeter: 0
+  TimeInPark: 0
+  Thought: 
+  CurrentMood: 5
+  ObjUsing: {fileID: 0}
+  currentDestination: {x: 0, y: 0, z: 0}
 --- !u!1 &736543699
 GameObject:
   m_ObjectHideFlags: 0
@@ -3412,20 +3455,6 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_FalloffTable:
-    m_Table[0]: 0
-    m_Table[1]: 0
-    m_Table[2]: 0
-    m_Table[3]: 0
-    m_Table[4]: 0
-    m_Table[5]: 0
-    m_Table[6]: 0
-    m_Table[7]: 0
-    m_Table[8]: 0
-    m_Table[9]: 0
-    m_Table[10]: 0
-    m_Table[11]: 0
-    m_Table[12]: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -4669,11 +4698,11 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
 --- !u!114 &1429774653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4691,6 +4720,7 @@ MonoBehaviour:
   verticalSpeed: 10
   offset: {x: 0, y: 1.15, z: 0}
   zoomScale: 1.5
+  followMouse: 0
 --- !u!1 &1465126814
 GameObject:
   m_ObjectHideFlags: 0
@@ -5629,6 +5659,8 @@ GameObject:
   - component: {fileID: 1796287759}
   - component: {fileID: 1796287760}
   - component: {fileID: 1796287756}
+  - component: {fileID: 1796287762}
+  - component: {fileID: 1796287761}
   m_Layer: 0
   m_Name: Level Manager
   m_TagString: Untagged
@@ -5672,6 +5704,7 @@ MonoBehaviour:
   sizeX: 30
   sizeZ: 30
   offset: 1
+  startNavPoints: []
 --- !u!4 &1796287758
 Transform:
   m_ObjectHideFlags: 0
@@ -5717,6 +5750,45 @@ MonoBehaviour:
   inSceneStackObjects: []
   wallHolder: {fileID: 0}
   objHolder: {fileID: 0}
+--- !u!114 &1796287761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1796287755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3cb96786cc85cf44909c25e375bfad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_BuildHeightMesh: 0
+  m_NavMeshData: {fileID: 0}
+--- !u!114 &1796287762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1796287755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70177e4a6ef22ad468f41c7e24621d26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1878806001
 GameObject:
   m_ObjectHideFlags: 0

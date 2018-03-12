@@ -11,12 +11,11 @@ public class GridBase : MonoBehaviour
 {
 
     public GameObject nodePrefab;
-    //public NavMeshS
-
     public int sizeX;
+private NavMeshSurface navSurface;
     public int sizeZ;
     public int offset = 2; //we want to be able to see the nodes/quads invidiually 
-
+    public Transform[] startNavPoints;
     public Node[,] grid;
 
     private static GridBase instance = null; //there shall only be 1 instance of the gridbase
@@ -34,14 +33,27 @@ public class GridBase : MonoBehaviour
     /// <summary>
     /// Create the singleton instance, grid, and collision box.
     /// </summary>
-    void Awake()
+    public void Awake()
     {
         instance = this;
         CreateGrid();
         CreateMouseCollision();
+        startNavPoints = new Transform[5];
 
+navSurface = GetComponent<NavMeshSurface>();
+        navSurface.BuildNavMesh();
+        startNavPoints[0] = grid[0, 0].vis.transform;
+        startNavPoints[1] = grid[0, sizeZ-1].vis.transform;
+        startNavPoints[2] = grid[sizeX-1, 0].vis.transform;
+        startNavPoints[3] = grid[sizeX-1, sizeZ-1].vis.transform;
+        startNavPoints[4] = grid[sizeX / 2, sizeZ / 2].vis.transform;
+        Debug.Log("Grid Base navSurface finished baking");
     }
 
+    public void Start()
+    {
+        
+    }
 
     /// <summary>
     /// Create a grid using a nested loop. Each node in the grid is a generic game obect with world coordinates, 

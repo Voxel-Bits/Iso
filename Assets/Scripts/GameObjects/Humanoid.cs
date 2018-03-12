@@ -7,6 +7,17 @@ using System;
 
 namespace Iso
 {
+    public struct PatrolPoints
+    {
+        public Transform[] points;
+        public EntityType entityType;
+
+        public PatrolPoints(Transform[] patrolPoints, EntityType eType)
+        {
+            points = patrolPoints;
+            entityType = eType;
+        }
+    }
     /// <summary>
     /// Each humanoid requires pathfinding. This class is for customers and employees.
     /// @member m_location : The location in the game this humanoid is currently located.
@@ -17,19 +28,26 @@ namespace Iso
     {
         public LocationType CurrentLocation;
 
+        public PatrolPoints pPoints;
+
         protected FSM<Humanoid> StateMachine;
 
         public NavMeshAgent agent;
 
         // Use this for initialization
-        void Start()
+        protected void Start()
         {
             StateMachine = new FSM<Humanoid>();
+            StateMachine.Owner = this;
+            agent = gameObject.AddComponent<NavMeshAgent>();
+            agent.autoBraking = false;
+            agent.speed = 50f;
+            Debug.Log("Humanoid start finished");
             //StateMachine.SetCurrentState
         }
 
         // Update is called once per frame
-        void Update()
+        public void Update()
         {
             StateMachine.FSMUpdate();
         }
@@ -38,7 +56,7 @@ namespace Iso
         /// 
         /// </summary>
         /// <returns></returns>
-        FSM<Humanoid> GetFSM()
+        public FSM<Humanoid> GetFSM()
         {
             return StateMachine;
         }

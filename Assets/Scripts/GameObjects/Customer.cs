@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace Iso
 {
-    public enum MoodType: long
+    public enum MoodType
     {
         Happy, Sad, Angry, Jubilant, Furious,Neutral
-    }
+    };
 
     /// <summary>
     /// 
@@ -21,20 +21,29 @@ namespace Iso
         public float FunMeter;
         public double TimeInPark;
         public string Thought;
-        public MoodType CurrentMood;
-        public static Transform[] PatrolPoints;
+        public MoodType CurrentMood = MoodType.Neutral;
+        public static Transform[] patrolPoints;
         public InteractableEnvironmentObjects ObjUsing;
+        public Vector3 currentDestination;
 
         // Use this for initialization
         void Start()
         {
+            
+            Debug.Assert(GridBase.GetInstance() != null, "Customer:: Start: Sorry!!!! GridBase not initialized yet.");
+            patrolPoints = GridBase.GetInstance().startNavPoints;
+            pPoints = new PatrolPoints(patrolPoints, EntityType.Customer);
+
+            base.Start();
+            Debug.Assert(StateMachine != null, "Customer:: Start: Sorry!!! Apparently derived class gets initialized before base class.");
             StateMachine.SetCurrentState(PatrolState.GetInstance());
         }
 
         // Update is called once per frame
-        void Update()
+        public void Update()
         {
-           
+            base.Update();
+            currentDestination = agent.destination;
         }
 
         /// <summary>

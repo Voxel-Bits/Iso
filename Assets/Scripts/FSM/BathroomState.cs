@@ -53,7 +53,7 @@ namespace Iso
         /// <param name="entity"></param>
         /// <param name="telegram"></param>
         /// <returns></returns>
-        public override bool OnMessaage(Customer entity, Telegram telegram)
+        public override bool OnMessage(Customer entity, Telegram telegram)
         {
             throw new NotImplementedException();
         }

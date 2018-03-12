@@ -36,7 +36,12 @@ namespace Iso
         /// <param name="entity"></param>
         /// <param name="telegram"></param>
         /// <returns></returns>
-        public abstract bool OnMessaage(entity_type entity, Telegram telegram);
+        public abstract bool OnMessage(entity_type entity, Telegram telegram);
+
+        private void Awake()
+        {
+            
+        }
 
     }
 }

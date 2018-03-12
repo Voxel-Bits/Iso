@@ -5,7 +5,15 @@ using LevelEditor;
 
 namespace Iso
 {
-
+    public enum EntityType: long
+    {
+        Customer,
+        Employee,
+        Game,
+        Decoration,
+        Food,
+        Structure
+    }
     /// <summary>
     /// In-Game locations.
     /// </summary>

@@ -2,6 +2,8 @@
 using UnityEditor;
 using UnityEngine;
 
+
+
 namespace Iso
 {
     /// <summary>
@@ -23,8 +25,7 @@ namespace Iso
         float minZoom = 15f;
         float currZoom;
 
-        [HideInInspector]
-        public bool followMouse { get; set; }
+        public bool followMouse;
 
         /// <summary>
         /// Sets the current zoom level to whatever the size of the ortho camera is, and the mouse is not following anything by default. 
@@ -60,8 +61,10 @@ namespace Iso
             }
 
             ChangeTarget();
-
-            FollowMouse();
+            if (followMouse)
+            {
+                FollowMouse();
+            }
         }
 
 
