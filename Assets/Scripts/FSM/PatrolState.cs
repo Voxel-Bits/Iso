@@ -13,7 +13,11 @@ namespace Iso
     {
         private int destPoint = 0;
 
+        private const float rotSpeed = 20f;
+
         private static PatrolState Instance = null;
+
+        private IEnumerator coroutine;
 
         public static PatrolState GetInstance()
         {
@@ -29,20 +33,28 @@ namespace Iso
         public override void Enter(Humanoid entity)
         {
             Debug.Assert(entity.agent != null, "PatrolState:: Enter: Entity's navmesh agent must not be null");
+            entity.agent.destination = entity.pPoints.points[destPoint].position;
+            entity.CurrentPath = entity.agent.path;
+            entity.agent.isStopped = false;
+
+            coroutine = CheckForInteractiveObjects(entity);
 
         }
 
         /// <summary>
         /// Customer to move in the world space. Walking animation to loop.
-        /// Go through the patrol points and randomly go to one
+        /// Go through the patrol points and randomly go to one. Then change to playing state.
+        /// TODO: This will change to any other state in the future
         /// </summary>
         /// <param name="entity"></param>
         public override void Execute(Humanoid entity)
         {
+            StartCoroutine(coroutine);
             if(!entity.agent.pathPending && entity.agent.remainingDistance < 0.5f)
             {
                 GoToNextPoint(entity);
-            } 
+            }
+
         }
 
         /// <summary>
@@ -89,7 +101,52 @@ namespace Iso
             }
 
             entity.agent.destination = entity.pPoints.points[destPoint].position;
+
+            InstantlyTurn(entity);
             destPoint = (destPoint + 1) % entity.pPoints.points.Length;
+        }
+
+        /// <summary>
+        /// Instanctly rotates the entity to face its destination.
+        /// TODO: Have it face the way point it's currently going to.
+        /// </summary>
+        /// <param name="entity"></param>
+        private void InstantlyTurn(Humanoid entity)
+        {
+            Vector3 direction = (entity.agent.destination - entity.gameObject.transform.position).normalized;
+            Quaternion qDir = Quaternion.LookRotation(direction);
+            entity.gameObject.transform.rotation = Quaternion.Slerp(entity.gameObject.transform.rotation, qDir, Time.deltaTime * rotSpeed);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator CheckForInteractiveObjects(Humanoid entity)
+        {
+            for(;;)
+            {
+                OverLapSphere(entity);
+
+                //CastSphere(entity);
+                yield return new WaitForSeconds(.5f);
+            }
+        }
+
+        void CastSphere(Humanoid entity)
+        {
+
+            RaycastHit[] hits;
+            Debug.DrawRay(entity.eyes.position, entity.eyes.forward.normalized * entity.lookRange, Color.red);
+            hits = Physics.SphereCastAll(entity.eyes.position, entity.lookSphereCastRadius, entity.eyes.forward, entity.lookRange);
+               
+        }
+
+        void OverLapSphere(Humanoid entity)
+        {
+            Collider[] hits;
+            Debug.DrawRay(entity.eyes.position, entity.eyes.forward.normalized * entity.lookRange, Color.red);
+            hits = Physics.OverlapSphere(entity.eyes.position, entity.lookSphereCastRadius);
         }
 
     }

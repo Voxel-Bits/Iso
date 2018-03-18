@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Iso
 {
@@ -26,6 +27,8 @@ namespace Iso
         public InteractableEnvironmentObjects ObjUsing;
         public Vector3 currentDestination;
 
+        
+
         // Use this for initialization
         void Start()
         {
@@ -36,10 +39,13 @@ namespace Iso
 
             base.Start();
             Debug.Assert(StateMachine != null, "Customer:: Start: Sorry!!! Apparently derived class gets initialized before base class.");
-            StateMachine.SetCurrentState(PatrolState.GetInstance());
+            StateMachine.SetCurrentState(IdleState.GetInstance());
         }
 
-        // Update is called once per frame
+
+        /// <summary>
+        /// TODO: change it so it's not changing the current destination each frame
+        /// </summary>
         public void Update()
         {
             base.Update();
@@ -144,5 +150,7 @@ namespace Iso
         {
             DisplayName = newName;
         }
+
+        
     }
 }

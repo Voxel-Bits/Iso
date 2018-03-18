@@ -34,6 +34,16 @@ namespace Iso
 
         public NavMeshAgent agent;
 
+        public NavMeshPath CurrentPath;
+
+        public ConeCollider coneCollider;
+
+        public Transform eyes;
+        public float lookRange = 20f;
+        public float lookSphereCastRadius = 1f;
+
+        public Dictionary<int, InteractableEnvironmentObjects> CurrentNearbyIEObjects;
+
         // Use this for initialization
         protected void Start()
         {
@@ -42,14 +52,29 @@ namespace Iso
             agent = gameObject.AddComponent<NavMeshAgent>();
             agent.autoBraking = false;
             agent.speed = 50f;
-            Debug.Log("Humanoid start finished");
-            //StateMachine.SetCurrentState
+            agent.velocity = Vector3.one;
+            agent.angularSpeed = 2f;
+            agent.acceleration = 5f;
+            agent.updateRotation = false;
+
+            //coneCollider = GetComponent<ConeCollider>();
+           // DisableCollider();
+            CurrentNearbyIEObjects = new Dictionary<int, InteractableEnvironmentObjects>();
         }
 
         // Update is called once per frame
         public void Update()
         {
             StateMachine.FSMUpdate();
+        }
+
+        /// <summary>
+        /// Will clearing the dictionary not call the triggers the next frame?
+        /// </summary>
+        public void LateUpdate()
+        {
+           // Debug.Log("Clearing dictionary");
+           // CurrentNearbyIEObjects.Clear();
         }
 
         /// <summary>
@@ -78,6 +103,52 @@ namespace Iso
         public override bool HandleMessage(Telegram msg)
         {
             return StateMachine.HandleMessage(msg); 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        //private void OnTriggerEnter(Collider other)
+        //{
+        //    Debug.Log("TriggerEnter \"" + other.gameObject.name + "\"Object");
+        //    InteractableEnvironmentObjects ieObject = other.gameObject.GetComponent<InteractableEnvironmentObjects>();
+        //    if (ieObject != null)
+        //    {
+        //        Debug.Log("Adding object " + ieObject.name);
+        //        CurrentNearbyIEObjects.Add(ieObject.GetInstanceID(), ieObject);
+        //    }
+        //}
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="other"></param>
+        //private void OnTriggerExit(Collider other)
+        //{
+        //    InteractableEnvironmentObjects ieObject = other.gameObject.GetComponent<InteractableEnvironmentObjects>();
+        //    if (ieObject != null)
+        //    {
+        //        Debug.Log("Removing object " + ieObject.name);
+        //        CurrentNearbyIEObjects.Remove(ieObject.GetInstanceID());
+
+        //    }
+        //}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void DisableCollider()
+        {
+            coneCollider.enabled = false;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void EnableCollider()
+        {
+            coneCollider.enabled = true;
         }
     }
 }
