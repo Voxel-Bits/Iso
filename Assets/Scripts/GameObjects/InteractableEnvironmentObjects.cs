@@ -27,6 +27,7 @@ namespace Iso
         public GameObject PlayArea;
         public GameObject WatchArea;
         public NavMeshObstacle navObstacle;
+        private NavMeshModifier navModifier;
         public string DisplayName;
         public bool Deletable;
         public int PriceToUse;
@@ -197,6 +198,14 @@ namespace Iso
         public override bool HandleMessage(Telegram msg)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void SetAreaType()
+        {
+
         }
     }
 }

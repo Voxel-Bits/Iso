@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace Iso
 {
 
@@ -18,6 +19,7 @@ namespace Iso
         private static PatrolState Instance = null;
 
         private IEnumerator coroutine;
+
 
         public static PatrolState GetInstance()
         {
@@ -37,7 +39,7 @@ namespace Iso
             entity.CurrentPath = entity.agent.path;
             entity.agent.isStopped = false;
 
-            coroutine = CheckForInteractiveObjects(entity);
+            coroutine = CheckForDecision(entity);
 
         }
 
@@ -50,10 +52,8 @@ namespace Iso
         public override void Execute(Humanoid entity)
         {
             StartCoroutine(coroutine);
-            if(!entity.agent.pathPending && entity.agent.remainingDistance < 0.5f)
-            {
-                GoToNextPoint(entity);
-            }
+           // CheckIfGoToNextDestination(entity);
+            
 
         }
 
@@ -79,7 +79,7 @@ namespace Iso
 
         private void Start()
         {
-            
+            ieobjs = new List<GameObject>();
         }
 
         // Use this for initialization
@@ -122,15 +122,28 @@ namespace Iso
         /// 
         /// </summary>
         /// <returns></returns>
-        IEnumerator CheckForInteractiveObjects(Humanoid entity)
+        IEnumerator CheckForDecision(Humanoid entity)
         {
-            for(;;)
+            // for(;;)
+            //   {
+            if (!entity.agent.pathPending && entity.agent.remainingDistance < 0.5f)
             {
-                OverLapSphere(entity);
+                GoToNextPoint(entity);
+            }
+            else
+            {
+                if(UnityEngine.Random.value < 0.4f)
+                {
+                    OverLapSphere(entity);
+
+                }
+               
+            }
+           
 
                 //CastSphere(entity);
                 yield return new WaitForSeconds(.5f);
-            }
+          //  }
         }
 
         void CastSphere(Humanoid entity)
@@ -142,11 +155,35 @@ namespace Iso
                
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
         void OverLapSphere(Humanoid entity)
         {
             Collider[] hits;
+            
             Debug.DrawRay(entity.eyes.position, entity.eyes.forward.normalized * entity.lookRange, Color.red);
             hits = Physics.OverlapSphere(entity.eyes.position, entity.lookSphereCastRadius);
+            for(int i = 0; i < hits.Length; i++)
+            {
+                if(hits[i].GetComponent<InteractableEnvironmentObjects>() != null)
+                {
+                    ieobjs.Add(hits[i].gameObject);
+                }
+            }
+
+            {
+
+            }
+        }
+
+        void CheckIfGoToNextDestination(Humanoid entity)
+        {
+            if (!entity.agent.pathPending && entity.agent.remainingDistance < 0.5f)
+            {
+                GoToNextPoint(entity);
+            }
         }
 
     }
