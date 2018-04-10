@@ -39,7 +39,7 @@ namespace Iso
 
             base.Start();
             Debug.Assert(StateMachine != null, "Customer:: Start: Sorry!!! Apparently derived class gets initialized before base class.");
-            StateMachine.SetCurrentState(IdleState.GetInstance());
+            StateMachine.SetCurrentState(InitialState.GetInstance());
         }
 
 

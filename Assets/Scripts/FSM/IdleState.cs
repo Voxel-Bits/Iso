@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Iso
 {
+
+    /// <summary>
+    /// No moving, just running animations
+    /// </summary>
     public class IdleState : State<Humanoid>
     {
         private static IdleState Instance = null;
@@ -13,13 +17,14 @@ namespace Iso
             return Instance;
         }
 
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="entity"></param>
         public override void Enter(Humanoid entity)
         {
-
+            Debug.Log("In Idle State Enter");
         }
 
         /// <summary>
@@ -28,7 +33,8 @@ namespace Iso
         /// <param name="entity"></param>
         public override void Execute(Humanoid entity)
         {
-            entity.GetFSM().ChangeState(PatrolState.GetInstance());
+            //entity.GetFSM().ChangeState(PatrolState.GetInstance());
+            Debug.Log("In Idle State Execute");
         }
 
         /// <summary>
@@ -37,6 +43,7 @@ namespace Iso
         /// <param name="entity"></param>
         public override void Exit(Humanoid entity)
         {
+            Debug.Log("In Idle State Exit");
         }
 
         /// <summary>

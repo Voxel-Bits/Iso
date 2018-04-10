@@ -5674,7 +5674,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1594872076}
   m_LocalRotation: {x: -0, y: 0.0013837778, z: -0, w: 0.99999905}
-  m_LocalPosition: {x: 12.23, y: 2.22, z: 13.95}
+  m_LocalPosition: {x: 12.22, y: 2.22, z: 10.46}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1297838289}
@@ -6435,6 +6435,7 @@ GameObject:
   - component: {fileID: 1796287761}
   - component: {fileID: 1796287763}
   - component: {fileID: 1796287764}
+  - component: {fileID: 1796287765}
   m_Layer: 0
   m_Name: Level Manager
   m_TagString: Untagged
@@ -6583,6 +6584,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fd43ddacd0e65e42b3441f385e9180a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1796287765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1796287755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a1ae91e9bb44aa4ab574d1f1ddd3be8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1878806001

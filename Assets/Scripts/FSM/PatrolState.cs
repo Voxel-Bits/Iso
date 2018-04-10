@@ -20,6 +20,7 @@ namespace Iso
 
         private IEnumerator coroutine;
 
+        private List<GameObject> ieobjs; 
 
         public static PatrolState GetInstance()
         {
@@ -58,12 +59,18 @@ namespace Iso
         }
 
         /// <summary>
-        /// 
+        /// What is even the call stack at this point?
+        /// This should have a busy loop until the agent reaches the desination.
         /// </summary>
         /// <param name="entity"></param>
         public override void Exit(Humanoid entity)
         {
-            throw new NotImplementedException();
+            Debug.Log("In Patrol State Exit");
+            while(entity.agent.pathStatus != UnityEngine.AI.NavMeshPathStatus.PathComplete)
+            {
+
+            }
+
         }
 
         /// <summary>
@@ -132,11 +139,11 @@ namespace Iso
             }
             else
             {
-                if(UnityEngine.Random.value < 0.4f)
-                {
+               // if(UnityEngine.Random.value < 0.4f)
+                //{
                     OverLapSphere(entity);
 
-                }
+                //}
                
             }
            
@@ -156,7 +163,9 @@ namespace Iso
         }
 
         /// <summary>
-        /// 
+        /// Take a snapshot of what's around agent, get the ieobjs and add to the list.
+        /// If there's more than one ieobjs in list, determine which one is less popular.
+        /// Though for now just go to the first one on the list
         /// </summary>
         /// <param name="entity"></param>
         void OverLapSphere(Humanoid entity)
@@ -173,8 +182,18 @@ namespace Iso
                 }
             }
 
-            {
+            //if(ieobjs.Count > 1)
+            //{
 
+            //}
+
+            if(ieobjs.Count > 0)
+            {
+                entity.agent.isStopped = true;
+                entity.agent.SetDestination(ieobjs[0].transform.Find("Player1").position);
+                InstantlyTurn(entity);
+                entity.agent.isStopped = false;
+                entity.GetFSM().ChangeState(IdleState.GetInstance());
             }
         }
 
