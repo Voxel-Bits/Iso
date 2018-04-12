@@ -66,10 +66,8 @@ namespace Iso
         public override void Exit(Humanoid entity)
         {
             Debug.Log("In Patrol State Exit");
-            while(entity.agent.pathStatus != UnityEngine.AI.NavMeshPathStatus.PathComplete)
-            {
-
-            }
+            StopCoroutine(coroutine);
+            entity.agent.isStopped = true;
 
         }
 
@@ -131,26 +129,35 @@ namespace Iso
         /// <returns></returns>
         IEnumerator CheckForDecision(Humanoid entity)
         {
-            // for(;;)
-            //   {
-            if (!entity.agent.pathPending && entity.agent.remainingDistance < 0.5f)
+            for (;;)
             {
-                GoToNextPoint(entity);
-            }
-            else
-            {
-               // if(UnityEngine.Random.value < 0.4f)
-                //{
-                    OverLapSphere(entity);
+                if (!entity.agent.pathPending && entity.agent.remainingDistance < 0.5f)
+                {
+                    GoToNextPoint(entity);
+                }
+                else
+                {
+                    // if(UnityEngine.Random.value < 0.4f)
+                    //{
 
-                //}
-               
-            }
-           
+                    //}
+                    if(IeObjectInRange(entity))
+                    {
+                        GoToAnIeObject(entity);
+                        if (!entity.agent.pathPending && entity.agent.remainingDistance < 0.1f)
+                        {
+
+                            entity.GetFSM().ChangeState(IdleState.GetInstance());
+                        }
+
+                        
+                    }
+                }
+
 
                 //CastSphere(entity);
                 yield return new WaitForSeconds(.5f);
-          //  }
+            }
         }
 
         void CastSphere(Humanoid entity)
@@ -161,39 +168,55 @@ namespace Iso
             hits = Physics.SphereCastAll(entity.eyes.position, entity.lookSphereCastRadius, entity.eyes.forward, entity.lookRange);
                
         }
-
+        
         /// <summary>
-        /// Take a snapshot of what's around agent, get the ieobjs and add to the list.
+        /// Check if there's anything interesting
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        bool IeObjectInRange(Humanoid entity)
+        {
+            Collider[] hits;
+
+            Debug.DrawRay(entity.eyes.position, entity.eyes.forward.normalized * entity.lookRange, Color.red);
+            hits = Physics.OverlapSphere(entity.eyes.position, entity.lookSphereCastRadius);
+            for (int i = 0; i < hits.Length; i++)
+            {
+                if (hits[i].GetComponent<InteractableEnvironmentObjects>() != null)
+                {
+                    return true;
+                }
+
+            }
+
+            return false;
+        }
+        /// <summary>
+        /// get the ieobjs and add to the list.
         /// If there's more than one ieobjs in list, determine which one is less popular.
         /// Though for now just go to the first one on the list
         /// </summary>
         /// <param name="entity"></param>
-        void OverLapSphere(Humanoid entity)
+        void GoToAnIeObject(Humanoid entity)
         {
             Collider[] hits;
-            
+
             Debug.DrawRay(entity.eyes.position, entity.eyes.forward.normalized * entity.lookRange, Color.red);
             hits = Physics.OverlapSphere(entity.eyes.position, entity.lookSphereCastRadius);
-            for(int i = 0; i < hits.Length; i++)
+            for (int i = 0; i < hits.Length; i++)
             {
-                if(hits[i].GetComponent<InteractableEnvironmentObjects>() != null)
+                if (hits[i].GetComponent<InteractableEnvironmentObjects>() != null)
                 {
-                    ieobjs.Add(hits[i].gameObject);
+                    ieobjs.Add(hits[i].transform.parent.gameObject);
                 }
             }
 
-            //if(ieobjs.Count > 1)
-            //{
-
-            //}
-
-            if(ieobjs.Count > 0)
+            if (ieobjs.Count > 1)
             {
                 entity.agent.isStopped = true;
-                entity.agent.SetDestination(ieobjs[0].transform.Find("Player1").position);
+                entity.agent.SetDestination(ieobjs[1].transform.Find("Player1").position);//MAGIC NUMBERRr
                 InstantlyTurn(entity);
                 entity.agent.isStopped = false;
-                entity.GetFSM().ChangeState(IdleState.GetInstance());
             }
         }
 
@@ -207,3 +230,4 @@ namespace Iso
 
     }
 }
+
