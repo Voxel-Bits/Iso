@@ -50,11 +50,11 @@ namespace Iso
             StateMachine = new FSM<Humanoid>();
             StateMachine.Owner = this;
             agent = gameObject.AddComponent<NavMeshAgent>();
-            agent.autoBraking = false;
+            agent.autoBraking = true;
             agent.speed = 50f;
             agent.velocity = Vector3.one;
             agent.angularSpeed = 2f;
-            agent.acceleration = 5f;
+            agent.acceleration = 1f;
             agent.updateRotation = false;
 
             //coneCollider = GetComponent<ConeCollider>();

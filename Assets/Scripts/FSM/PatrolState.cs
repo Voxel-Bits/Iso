@@ -20,7 +20,9 @@ namespace Iso
 
         private IEnumerator coroutine;
 
-        private List<GameObject> ieobjs; 
+        private List<GameObject> ieobjs;
+
+        private bool ShouldGoToNextState = false;
 
         public static PatrolState GetInstance()
         {
@@ -52,7 +54,15 @@ namespace Iso
         /// <param name="entity"></param>
         public override void Execute(Humanoid entity)
         {
-            StartCoroutine(coroutine);
+            if (!ShouldGoToNextState)
+            {
+                StartCoroutine(coroutine);
+            }
+            else
+            {
+
+                entity.GetFSM().ChangeState(IdleState.GetInstance());
+            }
            // CheckIfGoToNextDestination(entity);
             
 
@@ -146,8 +156,10 @@ namespace Iso
                         GoToAnIeObject(entity);
                         if (!entity.agent.pathPending && entity.agent.remainingDistance < 0.1f)
                         {
-
-                            entity.GetFSM().ChangeState(IdleState.GetInstance());
+                            ShouldGoToNextState = true;
+                            entity.agent.isStopped = true;
+                            Debug.Log("Agent should be stopped");
+                            break;
                         }
 
                         
