@@ -154,10 +154,11 @@ namespace Iso
                     if(IeObjectInRange(entity))
                     {
                         GoToAnIeObject(entity);
-                        if (!entity.agent.pathPending && entity.agent.remainingDistance < 0.1f)
+                        if (!entity.agent.pathPending && entity.agent.remainingDistance < 0.8f)
                         {
                             ShouldGoToNextState = true;
                             entity.agent.isStopped = true;
+                            entity.agent.ResetPath();
                             Debug.Log("Agent should be stopped");
                             break;
                         }

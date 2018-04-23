@@ -6489,7 +6489,7 @@ GameObject:
   - component: {fileID: 1594872079}
   - component: {fileID: 1594872078}
   - component: {fileID: 1594872077}
-  - component: {fileID: 1594872082}
+  - component: {fileID: 1594872081}
   m_Layer: 0
   m_Name: Customer
   m_TagString: Untagged
@@ -6589,21 +6589,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: -0.52400005, z: 0}
---- !u!54 &1594872082
-Rigidbody:
+--- !u!143 &1594872081
+CharacterController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1594872076}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Height: 2
+  m_Radius: 0.49999997
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1623556428
 GameObject:
   m_ObjectHideFlags: 0
